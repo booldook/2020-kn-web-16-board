@@ -1,0 +1,15 @@
+extends ./layout/layout-min
+block css
+	link(rel="stylesheet", href="/css/error.css")
+
+block content
+	.wrapper
+		div
+			.img-wrap
+				img.mw-100(src=`/img/error/${code}.png` alt="에러")
+			.code-wrap
+				h3= `ERROR: ${code}`
+		hr
+		p= msg
+		a.btn.btn-primary(href="/") 메인페이지로 돌아가기
+
