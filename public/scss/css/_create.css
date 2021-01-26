@@ -2,13 +2,6 @@
 /* Color */
 /* 반응형 */
 /* 폰트 */
-.list-wrapper {
-  font-size: 0.875em;
-}
-
-/* Color */
-/* 반응형 */
-/* 폰트 */
 .create-wrapper .list-wrapper {
   border-top: 2px solid #eee;
   border-bottom: 2px solid #eee;
@@ -26,11 +19,4 @@
 }
 .create-wrapper .list-wrapper .list-wrap .list {
   width: 83%;
-}
-
-/* Color */
-/* 반응형 */
-/* 폰트 */
-.create-wrapper {
-  font-size: 1em;
 }
