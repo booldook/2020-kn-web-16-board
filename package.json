@@ -1,0 +1,29 @@
+{
+  "name": "16.board",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/booldook/2020-kn-web-16-board.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/booldook/2020-kn-web-16-board/issues"
+  },
+  "homepage": "https://github.com/booldook/2020-kn-web-16-board#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1",
+    "mysql2": "^2.2.5",
+    "numeral": "^2.0.6",
+    "pug": "^3.0.0"
+  }
+}
