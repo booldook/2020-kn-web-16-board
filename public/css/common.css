@@ -1,0 +1,19 @@
+a:link {
+  color: inherit;
+}
+a:visited {
+  color: inherit;
+}
+a:active {
+  color: inherit;
+}
+a:hover {
+  color: inherit;
+}
+
+header .top-wrapper {
+  display: flex;
+}
+header .top-wrapper a {
+  padding: 0.75em 1.5em;
+}
