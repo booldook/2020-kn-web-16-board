@@ -1,10 +1,19 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500&display=swap");
 /* Color */
 /* 반응형 */
 /* 폰트 */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500&display=swap");
+html, body {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: auto;
+}
+
 a:link {
   color: inherit;
 }
@@ -20,7 +29,10 @@ a:hover {
 
 header .top-wrapper {
   display: flex;
+  justify-content: flex-end;
+  color: #eee;
+  background-color: #333;
 }
 header .top-wrapper a {
-  padding: 0.75em 1.5em;
+  padding: 0.25em 1em;
 }
