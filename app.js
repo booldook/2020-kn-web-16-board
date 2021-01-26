@@ -34,6 +34,10 @@ app.use('/board', boardRouter);
 app.use('/api', apiRouter);
 app.use('/gallery', galleryRouter);
 
+app.get('/scss', (req, res, next) => {
+	res.render('scss', {title: 'SCSS 테스트', css: 'scss-test'});
+});
+
 /************* Error **************/
 app.use((req, res, next) => {
 	next(err(404));
