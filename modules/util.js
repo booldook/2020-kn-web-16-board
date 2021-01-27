@@ -24,4 +24,8 @@ const err = (code, msg) => {
 	}
 }
 
-module.exports = { err }
+const alert = (msg) => {
+	return `<script>alert('${msg}'); history.go(-1);</script>`;
+}
+
+module.exports = { err, alert }

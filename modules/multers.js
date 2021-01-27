@@ -4,6 +4,9 @@ const { v4 } = require('uuid');
 const moment = require('moment');
 const path = require('path');
 
+const imgExt = ['jpg', 'jpeg', 'png', 'gif'];
+const allowExt = [...imgExt, 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'hwp', 'md', 'zip'];
+
 const destCb = (req, res, cb) => {
 	var folder = path.join(__dirname, '../uploads', moment().format('YYMMDD_HH'));
 	fs.ensureDirSync(folder);
@@ -21,6 +24,18 @@ const storage = multer.diskStorage({
 	filename: fileCb
 });
 
-const upload = multer({ storage });
+const limits = { fileSize: 1024 };
+const fileFilter = (req, file, cb) => {
+	// .Jpg->Jpg->jpg
+	var ext = path.extname(file.originalname).substr(1).toLowerCase(); 
+	if(allowExt.includes(ext)) {
+		cb(null, true);
+	}
+	else {
+		req.banExt = ext;
+		cb(null, false);
+	}
+}
+const upload = multer({ storage, limits, fileFilter });
 
 module.exports = { upload };
