@@ -5,7 +5,7 @@ block js
 block content
 	.create-wrapper.wrapper
 		include ../include/title-bar
-		form(action="/board/save" method="post" onsubmit="return onSave(this);")
+		form(action="/board/save" method="post" onsubmit="return onSave(this);" enctype="multipart/form-data")
 			ul.list-wrapper
 				li.list-wrap
 					.title 제목
