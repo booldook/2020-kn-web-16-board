@@ -19,6 +19,14 @@ const middleware3 = (req, res, next) => {
 	next();
 }
 
-app.get('/', middleware2, middleware3, (req, res) => {
-	res.send(`<h1>${req.user}/${req.user2}/${req.user3}</h1>`);
+// 3번방식
+const middleware4 = (value) => {
+	return (req, res, next) => {
+		req.user4 = value;
+		next();
+	}
+}
+
+app.get('/', middleware2, middleware3, middleware4('booldook4'), (req, res) => {
+	res.send(`<h1>${req.user}/${req.user2}/${req.user3}/${req.user4}</h1>`);
 })
