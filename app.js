@@ -30,6 +30,7 @@ const galleryRouter = require('./routes/gallery-route');
 const { Console } = require('console');
 
 app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/storages', express.static(path.join(__dirname, 'uploads')));
 app.use('/auth', authRouter);
 app.use('/board', boardRouter);
 app.use('/api', apiRouter);
