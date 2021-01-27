@@ -1,4 +1,7 @@
 extends ../layout/layout-default
+block js
+	script(src="https://cdn.tiny.cloud/1/po1ip1xxy0zm6ou4bk6qpelj7vno5nvg9w1qssyr2a0inkks/tinymce/5/tinymce.min.js" referrerpolicy="origin")
+	script(src="/js/editor.js")
 block content
 	.create-wrapper.wrapper
 		include ../include/title-bar
@@ -18,6 +21,6 @@ block content
 						input.form-control-file(type="file" name="upfile")
 				li.list-wrap
 					.w-100
-						textarea.form-control(name="content")
+						textarea#content.form-control(name="content")
 		.text-center.py-4
 			button.btn.btn-primary 저장
