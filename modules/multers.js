@@ -5,19 +5,21 @@ const moment = require('moment');
 const path = require('path');
 
 const destCb = (req, res, cb) => {
-	var folder = path.join(__dirname, 'uploads', moment().format('YYYYMMDD_hh'));
+	var folder = path.join(__dirname, '../uploads', moment().format('YYMMDD_HH'));
 	fs.ensureDirSync(folder);
 	cb(null, folder);
 }
 
 const fileCb = (req, file, cb) => {
-	cb(null, file.fieldname + '-' + Date.now())
+	var ext = path.extname(file.originalname); //.jpg
+	var name = moment().format('YYMMDD_HH') + '-' + v4() + ext;
+	cb(null, name);
 }
 
 const storage = multer.diskStorage({
 	destination: destCb,
 	filename: fileCb
-})
+});
 
 const upload = multer({ storage });
 
