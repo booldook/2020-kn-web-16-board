@@ -7,10 +7,12 @@
 		padding: 2em 0;
 		.list-wrap {
 			margin: 0.5em 0;
-			display: flex;
-			justify-content: space-between;
-			.title {width: 15%; min-width: 150px; border-right: 3px solid $colorGreen;}
+			@include flex($SB);
+			.title {width: 15%; line-height: 40px; height: 40px; min-width: 150px; border-right: 3px solid $colorGreen;}
 			.list {width: 83%;}
+			&:nth-child(3) {
+				.list {padding-top: 0.325em;}
+			}
 		}
 	}
 }

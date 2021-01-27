@@ -1,4 +1,4 @@
-/* Color */
+// Color
 $colorBlack: #111;
 $colorDarker: #333;
 $colorDark: #444;
@@ -14,14 +14,14 @@ $txtAccent: #1a5aad;
 $txtLight: #f8f8f8;
 $txtDark: #131313;
 
-/* 반응형 */
+// 반응형
 $width-desktop: 1199px;
 $width-laptop: 991px;
 $width-tablet: 767px;
 $width-mobile: 575px;
 
 
-/* 폰트 */
+// 폰트
 $open: 'Open Sans', sans-serif;
 $notoKr: 'Noto Sans KR', sans-serif;
 $sunKr: 'Sunflower', sans-serif;
@@ -31,3 +31,12 @@ $sm: 0.875em;
 $md: 1em;
 $lg: 1.125em;
 $xl: 1.25em;
+
+// FLEX
+$CT: center; 
+$FS: flex-start; 
+$FE: flex-end;
+$SB: space-between; 
+$SA: space-around; 
+$SE: space-evenly;
+$ST: stretch; 

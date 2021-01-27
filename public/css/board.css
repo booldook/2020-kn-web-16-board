@@ -1,36 +1,36 @@
-@charset "UTF-8";
-/* Color */
-/* 반응형 */
-/* 폰트 */
 .list-wrapper {
   font-size: 0.875em;
 }
 
-/* Color */
-/* 반응형 */
-/* 폰트 */
 .create-wrapper .list-wrapper {
   border-top: 2px solid #eee;
   border-bottom: 2px solid #eee;
   padding: 2em 0;
 }
+
 .create-wrapper .list-wrapper .list-wrap {
   margin: 0.5em 0;
   display: flex;
   justify-content: space-between;
+  align-items: stretch;
 }
+
 .create-wrapper .list-wrapper .list-wrap .title {
   width: 15%;
+  line-height: 40px;
+  height: 40px;
   min-width: 150px;
   border-right: 3px solid #2d7218;
 }
+
 .create-wrapper .list-wrapper .list-wrap .list {
   width: 83%;
 }
 
-/* Color */
-/* 반응형 */
-/* 폰트 */
+.create-wrapper .list-wrapper .list-wrap:nth-child(3) .list {
+  padding-top: 0.325em;
+}
+
 .create-wrapper {
   font-size: 1em;
 }

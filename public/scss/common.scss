@@ -13,26 +13,22 @@ a {
 
 header {
 	.top-wrapper {
-		font-size: $sm;
+		font-size: $xs;
 		background-color: $colorDarker;
 		color: $colorWhite;
-		padding-right: 1.5em;
+		padding-right: 2em;
 		.wrapper {
-			display: flex;
-			justify-content: flex-end;
+			@include flex($FE, $CT);
 			a	{padding: 0.5em 1em;}
 		}
 	}
 	.header-wrapper {
 		border-bottom: 1px solid $colorWhite;
 		.wrapper {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+			@include flex($SB, $CT);
 			.logo-wrapper {
 				a {
-					display: flex;
-					align-items: center;
+					@include flex($FS, $CT);
 					.img-wrap {width: 50px; margin-right: 1em; border-radius: 50%; overflow: hidden; border: 1px solid $colorWhite;}
 					span {font-size: 2em; font-family: $open; font-weight: 500; color: $txtPrimary;}
 				}
