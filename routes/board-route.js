@@ -14,14 +14,15 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/create', (req, res, next) => {
-	const pug = { ...pugs, tinyKey: 'po1ip1xxy0zm6ou4bk6qpelj7vno5nvg9w1qssyr2a0inkks' }
+	const pug = { ...pugs, tinyKey: process.env.TINY_KEY }
 	res.render('board/create', pug);
 });
 
 router.post('/save', async (req, res) => {
 	try {
-		const sql = '';
-		const value = [];
+		const { title, content, writer } = req.body;
+		const sql = 'INSERT INTO board SET title=?, content=?, writer=?';
+		const value = [title, content, writer];
 		const r = await pool.query(sql, value);
 		res.json(r[0]);
 	}
