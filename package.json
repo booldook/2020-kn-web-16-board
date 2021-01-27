@@ -20,11 +20,13 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "fs-extra": "^9.1.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "numeral": "^2.0.6",
-    "pug": "^3.0.0"
+    "pug": "^3.0.0",
+    "uuid": "^8.3.2"
   }
 }

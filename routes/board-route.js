@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer({ dest: 'uploads' });
 const { pool } = require('../modules/mysql-pool');
 const { err } = require('../modules/util');
 const pugs = { 
@@ -18,13 +20,13 @@ router.get('/create', (req, res, next) => {
 	res.render('board/create', pug);
 });
 
-router.post('/save', async (req, res) => {
+router.post('/save', upload.single('upfile'), async (req, res) => {
 	try {
 		const { title, content, writer } = req.body;
 		const sql = 'INSERT INTO board SET title=?, content=?, writer=?';
 		const value = [title, content, writer];
 		const r = await pool.query(sql, value);
-		res.json(r[0]);
+		res.json(req.file);
 	}
 	catch(e) {
 		next(err(e));
