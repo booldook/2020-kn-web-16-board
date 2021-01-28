@@ -1,7 +1,7 @@
 extends ../layout/layout-default
 block content
 	.list-wrapper.wrapper
-		include ../include/title-bar
+		include ../include/titlebar
 		table.tb-list.table.table-striped.table-hover.text-center
 			thead.thead-light
 				tr
@@ -22,5 +22,6 @@ block content
 								img.icon(src=`${v.icon}` alt="icon")
 						td= v.wdate
 						td= v.readnum
+		include ../include/pager
 		.text-center.py-3
 			a.btn.btn-primary(href="/board/create") 글쓰기		
