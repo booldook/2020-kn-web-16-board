@@ -7,6 +7,16 @@
 				color: $tbHeadTxt;
 				background-color: $tbHeadBg;
 				border-color: $tbHeadBorder;
+				&:nth-child(1) {width: 8%; min-width: 80px;}
+				&:nth-child(3) {width: 15%; min-width: 120px;}
+				&:nth-child(4) {width: 5%; min-width: 50px;}
+				&:nth-child(5) {width: 10%; min-width: 120px;}
+				&:nth-child(6) {width: 8%; min-width: 80px;}
+				@include tablet {
+					&:nth-child(4) {display: none;}
+					&:nth-child(5) {display: none;}
+					&:nth-child(6) {display: none;}
+				}
 			}
 		}
 		tbody {
@@ -21,6 +31,11 @@
 				}
 				td {
 					vertical-align: middle;
+					@include tablet {
+						&:nth-child(4) {display: none;}
+						&:nth-child(5) {display: none;}
+						&:nth-child(6) {display: none;}
+					}
 					img.icon {width: 30px;}
 				}
 			}

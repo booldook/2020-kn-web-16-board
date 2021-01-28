@@ -4,6 +4,43 @@
   border-color: #dee2e6;
 }
 
+.list-wrapper .table.tb-list thead th:nth-child(1) {
+  width: 8%;
+  min-width: 80px;
+}
+
+.list-wrapper .table.tb-list thead th:nth-child(3) {
+  width: 15%;
+  min-width: 120px;
+}
+
+.list-wrapper .table.tb-list thead th:nth-child(4) {
+  width: 5%;
+  min-width: 50px;
+}
+
+.list-wrapper .table.tb-list thead th:nth-child(5) {
+  width: 10%;
+  min-width: 120px;
+}
+
+.list-wrapper .table.tb-list thead th:nth-child(6) {
+  width: 8%;
+  min-width: 80px;
+}
+
+@media screen and (max-width: 767px) {
+  .list-wrapper .table.tb-list thead th:nth-child(4) {
+    display: none;
+  }
+  .list-wrapper .table.tb-list thead th:nth-child(5) {
+    display: none;
+  }
+  .list-wrapper .table.tb-list thead th:nth-child(6) {
+    display: none;
+  }
+}
+
 .list-wrapper .table.tb-list tbody tr:nth-of-type(odd) {
   background-color: rgba(0, 0, 0, 0.015);
 }
@@ -14,6 +51,18 @@
 
 .list-wrapper .table.tb-list tbody tr td {
   vertical-align: middle;
+}
+
+@media screen and (max-width: 767px) {
+  .list-wrapper .table.tb-list tbody tr td:nth-child(4) {
+    display: none;
+  }
+  .list-wrapper .table.tb-list tbody tr td:nth-child(5) {
+    display: none;
+  }
+  .list-wrapper .table.tb-list tbody tr td:nth-child(6) {
+    display: none;
+  }
 }
 
 .list-wrapper .table.tb-list tbody tr td img.icon {
@@ -42,8 +91,21 @@
   border-right: 3px solid #2d7218;
 }
 
+@media screen and (max-width: 575px) {
+  .create-wrapper .list-wrapper .list-wrap .title {
+    min-width: 80px;
+  }
+}
+
 .create-wrapper .list-wrapper .list-wrap .list {
   width: 83%;
+  line-height: 1.25;
+}
+
+@media screen and (max-width: 575px) {
+  .create-wrapper .list-wrapper .list-wrap .list {
+    padding-left: 20px;
+  }
 }
 
 .create-wrapper .list-wrapper .list-wrap:nth-child(3) .list {

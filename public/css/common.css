@@ -10,6 +10,12 @@ html, body {
   margin: auto;
 }
 
+@media screen and (max-width: 767px) {
+  .wrapper {
+    width: 96%;
+  }
+}
+
 a:not(.btn):link, a:not(.btn):visited, a:not(.btn):active, a:not(.btn):hover {
   color: inherit;
   text-decoration: none;
@@ -31,6 +37,12 @@ header .top-wrapper {
   padding-right: 2em;
 }
 
+@media screen and (max-width: 767px) {
+  header .top-wrapper {
+    padding-right: 0;
+  }
+}
+
 header .top-wrapper .wrapper {
   display: flex;
   justify-content: flex-end;
@@ -41,8 +53,20 @@ header .top-wrapper .wrapper a {
   padding: 0.5em 1em;
 }
 
+@media screen and (max-width: 767px) {
+  header .top-wrapper .wrapper a:last-child {
+    padding-right: 0;
+  }
+}
+
 header .header-wrapper {
   border-bottom: 1px solid #eee;
+}
+
+@media screen and (max-width: 767px) {
+  header .header-wrapper {
+    padding: 0.5em 0;
+  }
 }
 
 header .header-wrapper .wrapper {
@@ -84,6 +108,37 @@ header .header-wrapper .wrapper .navi-wrapper .navi {
 header .header-wrapper .wrapper .navi-wrapper .navi:hover {
   background-color: #eee;
   color: #0f203f;
+}
+
+@media screen and (max-width: 767px) {
+  header .header-wrapper .wrapper .navi-wrapper {
+    display: none;
+  }
+}
+
+header .header-wrapper .wrapper .mobile-wrapper {
+  display: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  header .header-wrapper .wrapper .mobile-wrapper {
+    display: block;
+  }
+}
+
+header .mobile-sub {
+  position: absolute;
+  width: 100%;
+  display: none;
+}
+
+header .mobile-sub .sub {
+  color: #eee;
+  background-color: #444;
+  padding: 1.5em;
+  border-bottom: 1px solid #777;
 }
 
 .title-wrapper {

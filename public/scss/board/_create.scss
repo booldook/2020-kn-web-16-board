@@ -9,8 +9,19 @@
 		.list-wrap {
 			margin: 0.5em 0;
 			@include flex($SB);
-			.title {width: 15%; line-height: 40px; height: 40px; min-width: 150px; border-right: 3px solid $colorGreen;}
-			.list {width: 83%;}
+			.title {
+				width: 15%; line-height: 40px; height: 40px; min-width: 150px; border-right: 3px solid $colorGreen;
+				@include mobile {
+					min-width: 80px;
+				}
+			}
+			.list {
+				width: 83%;
+				line-height: 1.25;
+				@include mobile {
+					padding-left: 20px;
+				}
+			}
 			&:nth-child(3) {
 				.list {padding-top: 0.325em;}
 			}

@@ -6,3 +6,14 @@ function onSave(f) {
 	}
 	return true;
 }
+
+function onMobile() {
+	$('.mobile-sub').stop().slideToggle(300);
+}
+
+function onResize(e) {
+	if($(this).width() > 767) {
+		$('.mobile-sub').stop().slideUp(0);
+	}
+}
+$(window).resize(onResize);

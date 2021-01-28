@@ -5,7 +5,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500&display=swap');
 
 html, body {font-family: $notoKr;}
-.wrapper {max-width: 1200px; margin: auto;}
+.wrapper {
+	max-width: 1200px; margin: auto;
+	@include tablet {
+		width: 96%;
+	}
+}
 
 a:not(.btn) {
 	&:link, &:visited, &:active, &:hover {color: inherit; text-decoration: none;}
@@ -27,13 +32,24 @@ header {
 		background-color: $colorDarker;
 		color: $colorWhite;
 		padding-right: 2em;
+		@include tablet {
+			padding-right: 0;
+		}
 		.wrapper {
 			@include flex($FE, $CT);
-			a	{padding: 0.5em 1em;}
+			a	{
+				padding: 0.5em 1em;
+				@include tablet {
+					&:last-child {padding-right: 0;}
+				}
+			}
 		}
 	}
 	.header-wrapper {
 		border-bottom: 1px solid $colorWhite;
+		@include tablet {
+			padding: 0.5em 0;
+		}
 		.wrapper {
 			@include flex($SB, $CT);
 			.logo-wrapper {
@@ -50,7 +66,29 @@ header {
 					padding: 1.75em;
 					&:hover {background-color: $colorWhite; color: $txtPrimary;}
 				}
+				@include tablet {
+					display: none;
+				}
 			}
+			.mobile-wrapper {
+				display: none;
+				font-size: 1.5em;
+				cursor: pointer;
+				@include tablet {
+					display: block;
+				}
+			}
+		}
+	}
+	.mobile-sub {
+		position: absolute;
+		width: 100%;
+		display: none;
+		.sub {
+			color: $colorWhite;
+			background-color: $colorDark;
+			padding: 1.5em;
+			border-bottom: 1px solid $colorGrey;
 		}
 	}
 }
@@ -59,4 +97,21 @@ header {
 	font-size: 1.75em;
 	text-align: center;
 	margin: 2em 0;
+}
+
+// 반응형
+@include desktop {
+	
+}
+
+@include laptop {
+
+}
+
+@include tablet {
+
+}
+
+@include mobile {
+
 }
