@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 	filename: fileCb
 });
 
-const limits = { fileSize: 1024 };
+const limits = { fileSize: 10240000 };
 const fileFilter = (req, file, cb) => {
 	// .Jpg->Jpg->jpg
 	var ext = path.extname(file.originalname).substr(1).toLowerCase(); 
