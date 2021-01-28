@@ -33,7 +33,7 @@ router.get(['/', '/list'], async (req, res, next) => {
 			else v.icon = '/img/empty.png';
 			return v;
 		});
-		res.render('board/list', { ...pugs, rs });
+		res.render('board/list', { ...pugs, rs, pager });
 	}
 	catch(e) {
 		next(err(e.message));

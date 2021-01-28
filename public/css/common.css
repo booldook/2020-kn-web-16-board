@@ -15,6 +15,15 @@ a:not(.btn):link, a:not(.btn):visited, a:not(.btn):active, a:not(.btn):hover {
   text-decoration: none;
 }
 
+.pagination {
+  margin: 3em 0 2em 0;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #fc8739;
+  border-color: #fc8739;
+}
+
 header .top-wrapper {
   font-size: 0.75em;
   background-color: #333;
