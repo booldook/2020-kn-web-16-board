@@ -1,4 +1,41 @@
 extends ../layout/layout-default
 block content
-	.wrapper
+	.list-wrapper.wrapper
 		include ../include/title-bar
+		table.tb-list.table.table-striped.table-hover.text-center
+			thead.thead-light
+				tr
+					th 번호
+					th 제목
+					th 작성자
+					th 첨부파일
+					th 작성일
+					th 조회수
+			tbody
+				tr
+					td 1
+					td 아버지를 아버지라
+					td 홍길동
+					td
+						a(href="")
+							img(src="" alt="icon")
+					td 2021-01-27
+					td 2
+				tr
+					td 1
+					td 아버지를 아버지라
+					td 홍길동
+					td
+						a(href="")
+							img(src="" alt="icon")
+					td 2021-01-27
+					td 2
+				tr
+					td 1
+					td 아버지를 아버지라
+					td 홍길동
+					td
+						a(href="")
+							img(src="" alt="icon")
+					td 2021-01-27
+					td 2

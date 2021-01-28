@@ -1,5 +1,15 @@
-.list-wrapper {
-  font-size: 0.875em;
+.list-wrapper .table.tb-list thead th {
+  color: #2c3238;
+  background-color: #faf1e8;
+  border-color: #dee2e6;
+}
+
+.list-wrapper .table.tb-list tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.015);
+}
+
+.list-wrapper .table.tb-list tbody tr:last-child td {
+  border-bottom: 1px solid #dee2e6;
 }
 
 .create-wrapper .list-wrapper {

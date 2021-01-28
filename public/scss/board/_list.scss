@@ -1,5 +1,25 @@
 @import '../mixin';
 
 .list-wrapper {
-	font-size: $sm;
+	.table.tb-list {
+		thead {
+			th {
+				color: $tbHeadTxt;
+				background-color: $tbHeadBg;
+				border-color: $tbHeadBorder;
+			}
+		}
+		tbody {
+			tr {
+				&:nth-of-type(odd) {
+					background-color: rgba(0,0,0,.015);
+				}
+				&:last-child {
+					td {
+						border-bottom: 1px solid #dee2e6;
+					}
+				}
+			}
+		}
+	}
 }
