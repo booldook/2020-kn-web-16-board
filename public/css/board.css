@@ -12,10 +12,19 @@
   border-bottom: 1px solid #dee2e6;
 }
 
+.list-wrapper .table.tb-list tbody tr td {
+  vertical-align: middle;
+}
+
+.list-wrapper .table.tb-list tbody tr td img.icon {
+  width: 30px;
+}
+
 .create-wrapper .list-wrapper {
   border-top: 2px solid #eee;
   border-bottom: 2px solid #eee;
-  padding: 2em 0;
+  padding-top: 2em;
+  border-bottom: none;
 }
 
 .create-wrapper .list-wrapper .list-wrap {
@@ -42,7 +51,7 @@
 }
 
 .create-wrapper .list-wrapper .list-wrap:nth-child(4) {
-  padding: 2em 0;
+  padding-top: 2em;
 }
 
 .create-wrapper {
