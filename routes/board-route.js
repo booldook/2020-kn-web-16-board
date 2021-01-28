@@ -14,6 +14,12 @@ const pugs = {
 
 router.get('/', async (req, res, next) => {
 	try {
+		let sql = 'SELECT count(*) FROM board';
+		let r = await pool.query(sql);
+		res.json(r);
+		console.log();
+
+		/*
 		let sql = 'SELECT * FROM board ORDER BY id DESC';
 		const r = await pool.query(sql);
 		const rs = r[0].map((v) => {
@@ -28,6 +34,7 @@ router.get('/', async (req, res, next) => {
 			return v;
 		});
 		res.render('board/list', { ...pugs, rs });
+		*/
 	}
 	catch(e) {
 		next(err(e.message));
