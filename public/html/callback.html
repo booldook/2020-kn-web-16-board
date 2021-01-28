@@ -1,0 +1,13 @@
+<script>
+function sum(a, fn) {
+	fn(a + a, (err, data) => {
+		console.log(data+ "입니다.");
+	})
+}
+
+
+sum(10, (hap, cb) => {
+	cb(null, hap*2);
+});
+
+</script>
