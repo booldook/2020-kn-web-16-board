@@ -6,8 +6,8 @@
 
 html, body {font-family: $notoKr;}
 .wrapper {
-	max-width: 1200px; margin: auto;
-	@include tablet {
+	max-width: 1180px; margin: auto;
+	@include desktop {
 		width: 96%;
 	}
 }

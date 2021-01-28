@@ -6,11 +6,11 @@ html, body {
 }
 
 .wrapper {
-  max-width: 1200px;
+  max-width: 1180px;
   margin: auto;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1199px) {
   .wrapper {
     width: 96%;
   }
