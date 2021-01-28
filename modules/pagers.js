@@ -21,7 +21,7 @@
 module.exports = (page, totalRecord, obj) => {
 	var page = Number(page);
 	var totalRecord = Number(totalRecord);
-	var { listCnt = 3, pagerCnt = 2 } = obj || {};
+	var { listCnt = 3, pagerCnt = 3 } = obj || {};
 	var totalPage = Math.ceil(totalRecord / listCnt);
 	var startIdx = (page - 1) * listCnt;
 	var startPage = Math.floor((page - 1) / pagerCnt) * pagerCnt + 1;
@@ -30,7 +30,7 @@ module.exports = (page, totalRecord, obj) => {
 	var prevPage = page - 1;
 	var nextPager = endPage + 1 > totalPage ? 0 : endPage + 1;
 	var prevPager = startPage - 1;
-	var firstPage = 1;
-	var lastPage = totalPage;
+	var firstPage = page == 1 ? 0 : 1;
+	var lastPage = page == totalPage ? 0 : totalPage;
 	return { page, totalRecord, listCnt, pagerCnt, totalPage, startIdx, startPage, endPage, nextPage, prevPage, nextPager, prevPager, firstPage, lastPage };
 }
