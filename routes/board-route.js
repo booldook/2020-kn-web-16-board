@@ -13,17 +13,38 @@ const pugs = {
 	headerTitle: 'Node/Express를 활용한 게시판' 
 }
 
-router.get('/view/:id', async (req, res, next) => {
-	let sql, r, rs, file;
-	sql = 'SELECT * FROM board WHERE id='+req.params.id;
-	r = await pool.query(sql);
-	rs = r[0][0];
-	rs.created = moment(rs.created).format('YYYY-MM-DD');
-	if(rs.savefile) {
-		rs.filename = rs.orifile;
-		rs.src = imgExt.includes(extName(rs.savefile)) ? srcPath(rs.savefile) : null;
+router.get('/download/:id', async (req, res, next) => {
+	try {
+		let sql, r, rs, filePath;
+		sql = 'SELECT orifile, savefile FROM board WHERE id='+req.params.id;
+		r = await pool.query(sql);
+		rs = r[0][0];
+		// __dirname: d:\임덕규_수업\16.board\routes
+		// ../uploads: d:\임덕규_수업\16.board\uploads\20210129_11\
+		filePath = path.join(__dirname, '../uploads', rs.savefile.substr(0, 9), rs.savefile);
+		res.download(filePath, rs.orifile);
 	}
-	res.render('board/view', { ...pugs, rs });
+	catch(e) {
+		next(err(e.message));
+	}
+});
+
+router.get('/view/:id', async (req, res, next) => {
+	try {
+		let sql, r, rs, file;
+		sql = 'SELECT * FROM board WHERE id='+req.params.id;
+		r = await pool.query(sql);
+		rs = r[0][0];
+		rs.created = moment(rs.created).format('YYYY-MM-DD');
+		if(rs.savefile) {
+			rs.filename = rs.orifile;
+			rs.src = imgExt.includes(extName(rs.savefile)) ? srcPath(rs.savefile) : null;
+		}
+		res.render('board/view', { ...pugs, rs });
+	}
+	catch(e) {
+		next(err(e.message));
+	}
 });
 
 router.get(['/', '/list'], async (req, res, next) => {
