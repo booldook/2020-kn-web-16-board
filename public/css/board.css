@@ -70,8 +70,8 @@
 }
 
 .create-wrapper .list-wrapper {
-  border-top: 2px solid #eee;
-  border-bottom: 2px solid #eee;
+  border-top: 2px solid #f1f1f1;
+  border-bottom: 2px solid #f1f1f1;
   padding-top: 2em;
   border-bottom: none;
 }
@@ -116,6 +116,13 @@
   padding-top: 2em;
 }
 
-.create-wrapper {
-  font-size: 1em;
+.view-wrapper .tb-view tr td {
+  vertical-align: middle;
+  padding: 1em;
+}
+
+.view-wrapper .tb-view tr td.title {
+  width: 10%;
+  max-width: 100px;
+  background-color: #eaeaea;
 }

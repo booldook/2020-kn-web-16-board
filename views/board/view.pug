@@ -1,0 +1,13 @@
+extends ../layout/layout-default
+block content
+	.view-wrapper.wrapper
+		table.table.tb-view
+			tbody
+				tr
+					td.title 제목
+					td(colspan="3").list.bold.lg= rs.title
+				tr
+					td.title 작성자
+					td.list= rs.writer
+					td.title 작성일
+					td.list= rs.created

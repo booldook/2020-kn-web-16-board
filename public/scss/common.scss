@@ -16,6 +16,16 @@ a:not(.btn) {
 	&:link, &:visited, &:active, &:hover {color: inherit; text-decoration: none;}
 }
 
+.thin {font-weight: 300;}
+.normal {font-weight: 400;}
+.bold {font-weight: 500;}
+
+.xs {font-size: 0.75em;}
+.sm {font-size: 0.875em;}
+.md {font-size: 1em;}
+.lg {font-size: 1.125em;}
+.xl {font-size: 1.25em;}
+
 .pagination {
 	margin: 3em 0 2em 0;
 	.page-item.active {

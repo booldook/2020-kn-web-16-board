@@ -5,6 +5,6 @@ $(document).ready(function(){
 		selector:'#content',
 		min_height: 300,
 		plugins: 'code',
-		toolbar: toolbar
+		toolbar: toolbar,
 	});
 });

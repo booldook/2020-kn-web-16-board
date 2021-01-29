@@ -21,6 +21,38 @@ a:not(.btn):link, a:not(.btn):visited, a:not(.btn):active, a:not(.btn):hover {
   text-decoration: none;
 }
 
+.thin {
+  font-weight: 300;
+}
+
+.normal {
+  font-weight: 400;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.xs {
+  font-size: 0.75em;
+}
+
+.sm {
+  font-size: 0.875em;
+}
+
+.md {
+  font-size: 1em;
+}
+
+.lg {
+  font-size: 1.125em;
+}
+
+.xl {
+  font-size: 1.25em;
+}
+
 .pagination {
   margin: 3em 0 2em 0;
 }
@@ -33,7 +65,7 @@ a:not(.btn):link, a:not(.btn):visited, a:not(.btn):active, a:not(.btn):hover {
 header .top-wrapper {
   font-size: 0.75em;
   background-color: #333;
-  color: #eee;
+  color: #f1f1f1;
   padding-right: 2em;
 }
 
@@ -60,7 +92,7 @@ header .top-wrapper .wrapper a {
 }
 
 header .header-wrapper {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #f1f1f1;
 }
 
 @media screen and (max-width: 767px) {
@@ -86,7 +118,7 @@ header .header-wrapper .wrapper .logo-wrapper a .img-wrap {
   margin-right: 1em;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid #eee;
+  border: 1px solid #f1f1f1;
 }
 
 header .header-wrapper .wrapper .logo-wrapper a span {
@@ -106,7 +138,7 @@ header .header-wrapper .wrapper .navi-wrapper .navi {
 }
 
 header .header-wrapper .wrapper .navi-wrapper .navi:hover {
-  background-color: #eee;
+  background-color: #f1f1f1;
   color: #0f203f;
 }
 
@@ -135,10 +167,10 @@ header .mobile-sub {
 }
 
 header .mobile-sub .sub {
-  color: #eee;
-  background-color: #444;
+  color: #f1f1f1;
+  background-color: #555;
   padding: 1.5em;
-  border-bottom: 1px solid #777;
+  border-bottom: 1px solid #999;
 }
 
 .title-wrapper {

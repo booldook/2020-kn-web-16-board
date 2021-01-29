@@ -1,5 +1,20 @@
 @import '../mixin';
 
-.create-wrapper {
-	font-size: $md;
+.view-wrapper {
+	.tb-view {
+		tr { 
+			td {
+				vertical-align: middle;
+				padding: 1em;
+				&.title {
+					width: 10%;
+					max-width: 100px;
+					background-color: $colorLighter;
+				}
+				&.list {
+					
+				}
+			}
+		}
+	}
 }

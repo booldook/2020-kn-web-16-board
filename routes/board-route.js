@@ -13,6 +13,14 @@ const pugs = {
 	headerTitle: 'Node/Express를 활용한 게시판' 
 }
 
+router.get('/view/:id', async (req, res, next) => {
+	let sql, value, r, rs;
+	sql = 'SELECT * FROM board WHERE id='+req.params.id;
+	r = await pool.query(sql);
+	r[0][0].created = moment(r[0][0].created).format('YYYY-MM-DD');
+	res.render('board/view', { ...pugs, rs: r[0][0] });
+});
+
 router.get(['/', '/list'], async (req, res, next) => {
 	try {
 		let sql, value, r, rs, pager;
@@ -66,5 +74,7 @@ router.post('/save', upload.single('upfile'), async (req, res, next) => {
 		next(err(e.message));
 	}
 });
+
+
 
 module.exports = router;

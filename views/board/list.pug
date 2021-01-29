@@ -1,8 +1,7 @@
 extends ../layout/layout-default
 block content
 	.list-wrapper.wrapper
-		include ../include/titlebar
-		table.tb-list.table.table-striped.table-hover.text-center
+		table.tb-list.table.table-striped.text-center
 			thead.thead-light
 				tr
 					th 번호
@@ -15,7 +14,8 @@ block content
 				each v in rs
 					tr
 						td= v.id
-						td.text-left= v.title
+						td.text-left
+							a(href=`/board/view/${v.id}`)= v.title
 						td= v.writer
 						td
 							if v.icon

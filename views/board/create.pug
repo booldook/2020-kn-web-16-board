@@ -4,7 +4,6 @@ block js
 	script(src="/js/editor.js")
 block content
 	.create-wrapper.wrapper
-		include ../include/titlebar
 		form(action="/board/save" method="post" onsubmit="return onSave(this);" enctype="multipart/form-data")
 			ul.list-wrapper
 				li.list-wrap
