@@ -1,27 +1,32 @@
 extends ../layout/layout-default
 block content
 	.join-wrapper.wrapper
-		form(action="/auth/save" method="post" onsubmit="return onJoin(this)")
+		form(name="joinForm" action="/auth/save" method="post" onsubmit="return onJoin(this)")
 			ul.join-wrap
-				li.list
+				li.list.userid
 					.title 아이디
 					.content
-						input.form-control(type="text" name="userid" placeholder="아이디")
-				li.list
+						input.form-control(type="text" name="userid" onblur="onBlurId(this);" placeholder="아이디")
+						.comment
+				li.list.userpw
 					.title 패스워드
 					.content
-						input.form-control(type="text" name="userpw" placeholder="패스워드")
-				li.list
+						input.form-control(type="text" name="userpw" onblur="onBlurPw(this);" placeholder="패스워드")
+						.comment
+				li.list.userpw2
 					.title 패스워드 확인
 					.content
-						input.form-control(type="text" name="userpw2" placeholder="패스워드 확인")
-				li.list
+						input.form-control(type="text" name="userpw2" onblur="onBlurPw2(this);" placeholder="패스워드 확인")
+						.comment
+				li.list.username
 					.title 이름
 					.content
 						input.form-control(type="text" name="username" placeholder="이름")
-				li.list
+						.comment
+				li.list.email
 					.title 이메일
 					.content
-						input.form-control(type="text" name="email" placeholder="이메일")
+						input.form-control(type="text" name="email" onblur="onBlurEmail(this);" placeholder="이메일")
+						.comment
 			.text-center.py-3
 				button.btn.btn-success 가입

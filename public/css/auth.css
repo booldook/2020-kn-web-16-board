@@ -9,7 +9,7 @@
 }
 
 .join-wrapper .join-wrap .list {
-  padding: 0.5em 0;
+  padding: 0.5em 0 .25em 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -33,4 +33,17 @@
 
 .join-wrapper .join-wrap .list .content {
   flex-grow: 1;
+}
+
+.join-wrapper .join-wrap .list .content .comment {
+  font-size: 0.875em;
+  padding: 0.25em;
+}
+
+.join-wrapper .join-wrap .list .content .comment.danger {
+  color: red;
+}
+
+.join-wrapper .join-wrap .list .content .comment.active {
+  color: #0062ff;
 }

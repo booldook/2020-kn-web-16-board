@@ -5,7 +5,7 @@
 		border-radius: 8px;
 		padding: 2em 3em;
 		.list {
-			padding: 0.5em 0;
+			padding: 0.5em 0 .25em 0;
 			@include flex($FS, $CT);
 			&:not(:last-child) {
 				border-bottom: 1px solid $colorLighter;
@@ -20,6 +20,12 @@
 			}
 			.content {
 				flex-grow: 1;
+				.comment {
+					font-size: $sm;
+					padding: 0.25em;
+					&.danger { color: red; }
+					&.active { color: #0062ff; }
+				}
 			}
 		}
 	}
