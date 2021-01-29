@@ -16,6 +16,10 @@
 				padding: 1em;
 				.thumb {max-width: 80px; max-height: 80px; margin-right: 1em;}
 			}
+			&:last-child {
+				display: block;
+				padding: 1em;
+			}
 		}
 	}
 }

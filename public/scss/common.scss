@@ -65,8 +65,8 @@ header {
 			.logo-wrapper {
 				a {
 					@include flex($FS, $CT);
-					.img-wrap {width: 50px; margin-right: 1em; border-radius: 50%; overflow: hidden; border: 1px solid $colorWhite;}
-					span {font-size: 2em; font-family: $open; font-weight: 500; color: $txtPrimary;}
+					.img-wrap {width: 50px; margin-right: 0.5em; border-radius: 50%; overflow: hidden; border: 1px solid $colorWhite;}
+					span {font-size: $xs; font-family: $open; font-weight: 500; color: $txtPrimary;}
 				}
 			}
 			.navi-wrapper {
@@ -104,7 +104,7 @@ header {
 }
 
 .title-wrapper {
-	font-size: 1.75em;
 	text-align: center;
 	margin: 2em 0;
+	h1 {font-size: 1.5em;}
 }

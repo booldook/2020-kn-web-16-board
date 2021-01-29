@@ -145,3 +145,8 @@
   max-height: 80px;
   margin-right: 1em;
 }
+
+.view-wrapper .list-wrap .list:last-child {
+  display: block;
+  padding: 1em;
+}

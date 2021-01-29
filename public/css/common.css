@@ -115,14 +115,14 @@ header .header-wrapper .wrapper .logo-wrapper a {
 
 header .header-wrapper .wrapper .logo-wrapper a .img-wrap {
   width: 50px;
-  margin-right: 1em;
+  margin-right: 0.5em;
   border-radius: 50%;
   overflow: hidden;
   border: 1px solid #f1f1f1;
 }
 
 header .header-wrapper .wrapper .logo-wrapper a span {
-  font-size: 2em;
+  font-size: 0.75em;
   font-family: "Open Sans", sans-serif;
   font-weight: 500;
   color: #0f203f;
@@ -174,7 +174,10 @@ header .mobile-sub .sub {
 }
 
 .title-wrapper {
-  font-size: 1.75em;
   text-align: center;
   margin: 2em 0;
+}
+
+.title-wrapper h1 {
+  font-size: 1.5em;
 }
