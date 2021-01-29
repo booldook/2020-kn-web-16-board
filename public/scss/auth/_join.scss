@@ -1,0 +1,26 @@
+.join-wrapper {
+	max-width: 700px;
+	.join-wrap {
+		border: 2px solid $colorLighter;
+		border-radius: 8px;
+		padding: 2em 3em;
+		.list {
+			padding: 0.5em 0;
+			@include flex($FS, $CT);
+			&:not(:last-child) {
+				border-bottom: 1px solid $colorLighter;
+				input {max-width: 300px;}
+			}
+			.title {
+				padding: 0.25em 0;
+				width: 120px;
+				flex-shrink: 0;
+				border-right: 3px solid $colorGreen;
+				margin-right: 1.5em;
+			}
+			.content {
+				flex-grow: 1;
+			}
+		}
+	}
+}
