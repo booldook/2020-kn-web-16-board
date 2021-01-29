@@ -14,12 +14,35 @@
 			}
 			.content {
 				padding: 1em;
-				.thumb {max-width: 80px; max-height: 80px; margin-right: 1em;}
+				.thumb {max-width: 80px; max-height: 80px; margin-right: 1em; cursor: pointer;}
 			}
 			&:last-child {
 				display: block;
 				padding: 1em;
 			}
 		}
+	}
+	.modal-wrapper {
+		display: none;
+		width: 100vw;
+		height: 100vh;
+		@include layer(fixed, 0, auto, auto, 0);
+		@include bgDark(0.7);
+		.bt-close {
+			width: 50px;
+			height: 50px;
+			background-color: #940a0a;
+			color: $colorWhite;
+			cursor: pointer;
+			font-size: $xl;
+			@include flex($CT, $CT);
+			@include layer(absolute, 0, 0, auto, auto);
+		}
+		.modal-wrap {
+			max-width: 80vh;
+			max-height: 80vh;
+			img {max-width: 100%; max-height: 100%}
+		}
+		&.active {@include flex($CT, $CT);}
 	}
 }

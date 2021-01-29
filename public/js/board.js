@@ -1,3 +1,12 @@
+function onModal(src) {
+	$(".modal-wrapper").addClass('active');
+	$(".modal-wrapper .modal-img").attr('src', src);
+}
+
+function onModalClose() {
+	$(".modal-wrapper").removeClass('active');
+}
+
 function onSave(f) {
 	if(f.title.value.trim() == "") {
 		alert('제목을 입력하세요.');

@@ -1,5 +1,20 @@
 @import './variables';
 
+@mixin layer($position, $top, $right, $bottom, $left) {
+	position: $position;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+
+@mixin bgDark($opacity) {
+	background-color: rgba(0, 0, 0, $opacity);
+}
+
+@mixin bgLight($opacity) {
+	background-color: rgba(255, 255, 255, $opacity);
+}
 
 @mixin flex($hori: flex-start, $vert: stretch) {
 	display: flex;
