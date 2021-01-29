@@ -1,13 +1,27 @@
 extends ../layout/layout-default
 block content
 	.view-wrapper.wrapper
-		table.table.tb-view
-			tbody
-				tr
-					td.title 제목
-					td(colspan="3").list.bold.lg= rs.title
-				tr
-					td.title 작성자
-					td.list= rs.writer
-					td.title 작성일
-					td.list= rs.created
+		ul.list-wrap
+			li.list
+				.title 제목
+				.content.bold.lg= rs.title
+			li.list
+				.title 작성자
+				.content= rs.writer
+			li.list
+				.title 작성일
+				.content= rs.created
+			li.list
+				.title 조회수
+				.content= rs.readnum
+			if rs.filename
+				li.list
+					.title 첨부파일
+					.content
+						if rs.src
+							img.thumb(src=`${rs.src}` alt=`${rs.filename}`)
+						span= rs.filename
+						a.ml-2(href=`/board/download/${rs.id}`)
+							i.fa.fa-download.text-info.xl
+
+

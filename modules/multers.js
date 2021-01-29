@@ -38,4 +38,4 @@ const fileFilter = (req, file, cb) => {
 }
 const upload = multer({ storage, limits, fileFilter });
 
-module.exports = { upload };
+module.exports = { upload, imgExt, allowExt };

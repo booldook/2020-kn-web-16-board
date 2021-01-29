@@ -1,19 +1,20 @@
 @import '../mixin';
 
 .view-wrapper {
-	.tb-view {
-		tr { 
-			td {
-				vertical-align: middle;
+	.list-wrap {
+		border-top: 1px solid $colorLighter;
+		.list {
+			@include flex();
+			border-bottom: 1px solid $colorLighter;
+			.title {
+				width: 120px;
 				padding: 1em;
-				&.title {
-					width: 10%;
-					max-width: 100px;
-					background-color: $colorLighter;
-				}
-				&.list {
-					
-				}
+				background-color: $colorWhite;
+				@include flex($FS, $CT);
+			}
+			.content {
+				padding: 1em;
+				.thumb {max-width: 80px; max-height: 80px; margin-right: 1em;}
 			}
 		}
 	}

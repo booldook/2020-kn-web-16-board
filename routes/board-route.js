@@ -1,9 +1,9 @@
 const express = require('express');
 const moment = require('moment');
 const path = require('path');
-const { upload } = require('../modules/multers');
+const { upload, imgExt } = require('../modules/multers');
 const { pool } = require('../modules/mysql-pool');
-const { err, alert } = require('../modules/util');
+const { err, alert, extName, srcPath } = require('../modules/util');
 const pagers = require('../modules/pagers');
 const router = express.Router();
 const pugs = { 
@@ -14,11 +14,16 @@ const pugs = {
 }
 
 router.get('/view/:id', async (req, res, next) => {
-	let sql, value, r, rs;
+	let sql, r, rs, file;
 	sql = 'SELECT * FROM board WHERE id='+req.params.id;
 	r = await pool.query(sql);
-	r[0][0].created = moment(r[0][0].created).format('YYYY-MM-DD');
-	res.render('board/view', { ...pugs, rs: r[0][0] });
+	rs = r[0][0];
+	rs.created = moment(rs.created).format('YYYY-MM-DD');
+	if(rs.savefile) {
+		rs.filename = rs.orifile;
+		rs.src = imgExt.includes(extName(rs.savefile)) ? srcPath(rs.savefile) : null;
+	}
+	res.render('board/view', { ...pugs, rs });
 });
 
 router.get(['/', '/list'], async (req, res, next) => {
