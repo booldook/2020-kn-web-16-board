@@ -1,6 +1,7 @@
 const express = require('express');
 const { pool } = require('../modules/mysql-pool');
 const { err } = require('../modules/util');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 
 const pugs = {
@@ -28,6 +29,7 @@ router.post('/save', async (req, res, next) => {
 		if(username.length == 0) next(err('이름 오류'));
 		if(email.match(regExp) == null) next(err('이메일 오류'));
 
+		userpw = await bcrypt.hash(userpw + process.env.BCRYPT_SALT, Number(process.env.BCRYPT_ROUND));
 		sql = 'INSERT INTO auth SET userid=?, userpw=?, username=?, email=?';
 		value = [userid, userpw, username, email];
 		r = await pool.query(sql, value);
