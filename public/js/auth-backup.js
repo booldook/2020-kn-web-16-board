@@ -4,32 +4,33 @@ function comment(el, cmt, cls) {
 	$(el).next().addClass(cls);
 }
 
-function onJoin() {
-	onBlurId();
-	onBlurPass();
-}
-
-function onBlurId(userid) {
-	
-	// jQuery
-	/* $.get('/auth/userid?userid='+el.value, function(r) {
-		console.log(r);
-	}); */
-	
-	// Javascript - Vanilla Script
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-	if (xhr.readyState === xhr.DONE) {
-			if (xhr.status === 200 || xhr.status === 201) {
-				return JSON.parse(xhr.responseText).result;
-			}
+var idChk = false;
+var passChk = false;
+var nameChk = false;
+var emailChk = false;
+function onBlurId(el) {
+	function onResponse(r) {
+		if(r.result) {
+			comment(el, '멋진 아이디입니다. 사용가능합니다.', 'active');
+			idChk = true;
+			return true;
 		}
-	};
-	xhr.open('GET', '/auth/userid?userid='+userid);
-	xhr.send();
+		else {
+			comment(el, '존재하는 아이디입니다. 사용할 수 없습니다.', 'danger');
+			idChk = false;
+			return false;
+		}
+	}
+	var userid = $(el).val().trim();	// el.value
+	if(userid.length < 8) {
+		comment(el, '아이디는 8자 이상입니다.', 'danger');
+		idChk = false;
+		return false;
+	}
+	else {
+		$.get('/auth/userid', { userid: userid }, onResponse);
+	}
 }
-
-console.log(onBlurId('booldook', fn));
 
 function onBlurPw(el) {
 	var pw = $(el).val().trim();
