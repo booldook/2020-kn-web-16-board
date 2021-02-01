@@ -1,0 +1,17 @@
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+<script>
+	function a() {
+		return new Promise(function(resolve, reject) {
+			setTimeout(function(){ resolve(true) }, 0);
+		});
+	}
+
+	async function returnA() {
+		console.log(await a());
+	}
+	returnA();
+
+	/* a().then(function(r){
+		console.log(r);
+	}) */
+</script>
