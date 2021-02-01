@@ -11,6 +11,15 @@ const pugs = {
 	headerTitle: 'Node/Express를 활용한 인증 구현' 
 }
 
+router.get('/login', async (req, res, next) => {
+	let sql, value, r, rs, compare;
+	sql = 'SELECT userpw FROM auth WHERE userid=?';
+	value = ['booldook'];
+	r = await pool.query(sql, value);
+	compare = await bcrypt.compare('11111111!q' + process.env.BCRYPT_SALT, r[0][0].userpw);
+	res.json(compare);
+});
+
 router.post('/save', async (req, res, next) => {
 	try {
 		let { userid, userpw, username, email } = req.body;
