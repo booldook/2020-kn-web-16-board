@@ -1,0 +1,19 @@
+.login-wrapper {
+	max-width: 500px;
+	.login-wrap {
+		border: 2px solid $colorLighter;
+		border-radius: 8px;
+		padding: 2em 3em;
+		li {
+			padding: 0.5em 0 .25em 0;
+			@include flex($FS, $CT);
+			.title {
+				padding: 0.25em 0;
+				width: 90px;
+				flex-shrink: 0;
+				border-right: 3px solid $colorGreen;
+				margin-right: 1.5em;
+			}
+		}
+	}
+}

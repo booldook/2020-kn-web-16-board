@@ -1,6 +1,6 @@
 const express = require('express');
 const { pool } = require('../modules/mysql-pool');
-const { err } = require('../modules/util');
+const { err, alert } = require('../modules/util');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 
@@ -11,13 +11,27 @@ const pugs = {
 	headerTitle: 'Node/Express를 활용한 인증 구현' 
 }
 
-router.get('/login', async (req, res, next) => {
+router.post('/logon', async (req, res, next) => {
+	let msg = '아이디 혹은 패스워드를 확인하세요.';
 	let sql, value, r, rs, compare;
+	let { userid, userpw } = req.body;
 	sql = 'SELECT userpw FROM auth WHERE userid=?';
-	value = ['booldook'];
+	value = [userid];
 	r = await pool.query(sql, value);
-	compare = await bcrypt.compare('11111111!q' + process.env.BCRYPT_SALT, r[0][0].userpw);
-	res.json(compare);
+	if(r[0].length == 1) {
+		compare = await bcrypt.compare(userpw + process.env.BCRYPT_SALT, r[0][0].userpw);
+		if(compare) res.send('로그인됨');
+		else res.send(alert(msg));
+	}
+	else {
+		res.send(alert(msg));
+	}
+});
+
+router.get('/login', (req, res, next) => {
+	const pug = { ...pugs };
+	pug.headerTitle += ' - 회원 로그인';
+	res.render('auth/login', { ...pug });
 });
 
 router.post('/save', async (req, res, next) => {

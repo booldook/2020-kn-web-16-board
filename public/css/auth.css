@@ -47,3 +47,28 @@
 .join-wrapper .join-wrap .list .content .comment.active {
   color: #0062ff;
 }
+
+.login-wrapper {
+  max-width: 500px;
+}
+
+.login-wrapper .login-wrap {
+  border: 2px solid #eaeaea;
+  border-radius: 8px;
+  padding: 2em 3em;
+}
+
+.login-wrapper .login-wrap li {
+  padding: 0.5em 0 .25em 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.login-wrapper .login-wrap li .title {
+  padding: 0.25em 0;
+  width: 90px;
+  flex-shrink: 0;
+  border-right: 3px solid #2d7218;
+  margin-right: 1.5em;
+}

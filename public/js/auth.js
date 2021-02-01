@@ -1,3 +1,16 @@
+function onLogon(f) {
+	if(f.userid.value.trim() == "") {
+		f.userid.focus();
+		return false;
+	}
+	if(f.userpw.value.trim() == "") {
+		f.userpw.focus();
+		return false;
+	}
+	return true;
+}
+
+
 function comment(el, cmt, cls) {
 	$(el).next().html(cmt);
 	$(el).next().removeClass('active danger');

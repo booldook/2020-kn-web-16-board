@@ -1,0 +1,15 @@
+extends ../layout/layout-default
+block content
+	.login-wrapper.wrapper
+		form(name="loginForm" action="/auth/logon" method="post" onsubmit="return onLogon(this);")
+			ul.login-wrap
+				li
+					.title 아이디
+					.content
+						input.form-control(type="text" name="userid" placeholder="아이디")
+				li
+					.title 패스워드
+					.content
+						input.form-control(type="password" name="userpw" placeholder="패스워드")
+			.text-center.py-3
+				button.btn.btn-success 로그인
