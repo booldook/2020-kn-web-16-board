@@ -15,15 +15,24 @@ router.post('/logon', async (req, res, next) => {
 	let msg = '아이디 혹은 패스워드를 확인하세요.';
 	let sql, value, r, rs, compare;
 	let { userid, userpw } = req.body;
+	// SELECT userpw FROM auth WHERE userid='booldook';
 	sql = 'SELECT userpw FROM auth WHERE userid=?';
 	value = [userid];
 	r = await pool.query(sql, value);
 	if(r[0].length == 1) {
+		// 아이디가 존재해서 패스워드를 r[0][0].userpw 가져옴
 		compare = await bcrypt.compare(userpw + process.env.BCRYPT_SALT, r[0][0].userpw);
-		if(compare) res.send('로그인됨');
-		else res.send(alert(msg));
+		if(compare) {
+			// 패스워드도 일치
+			res.send('로그인됨');
+		}
+		else {
+			// 패스워드가 틀림
+			res.send(alert(msg));
+		}
 	}
 	else {
+		// 아이디가 존재하지 않음
 		res.send(alert(msg));
 	}
 });
