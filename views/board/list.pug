@@ -23,5 +23,6 @@ block content
 						td= v.wdate
 						td= v.readnum
 		include ../include/pager
-		.text-center.py-3
-			a.btn.btn-success(href="/board/create") 글쓰기
+		if user.id
+			.text-center.py-3
+				a.btn.btn-success(href="/board/create") 글쓰기

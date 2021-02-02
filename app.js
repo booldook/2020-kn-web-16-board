@@ -47,5 +47,6 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+	console.log(err);
 	res.render('error', err);
 });
