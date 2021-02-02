@@ -11,6 +11,12 @@ const pugs = {
 	headerTitle: 'Node/Express를 활용한 인증 구현' 
 }
 
+router.get('/logout', (req, res, next) => {
+	req.session.destroy();
+	req.app.locals.user = {};
+	res.redirect('/');
+});
+
 router.post('/logon', async (req, res, next) => {
 	let msg = '아이디 혹은 패스워드를 확인하세요.';
 	let sql, value, r, rs, compare;

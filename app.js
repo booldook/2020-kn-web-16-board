@@ -4,7 +4,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { err } = require('./modules/util');
-const session = require('express-session');
+const sessions = require('./modules/sessions');
+const locals = require('./modules/locals');
 
 /************* Server **************/
 app.listen(process.env.PORT, () => {
@@ -23,13 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 /************* SESSION **************/
-app.set('trust proxy', 1);
-app.use(session({
-  secret: process.env.SESSION_KEY,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
-}));
+app.use(sessions());
+app.use(locals());
 
 /************* Router **************/
 const authRouter = require('./routes/auth-route');

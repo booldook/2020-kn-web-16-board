@@ -1,9 +1,11 @@
 header
 	.top-wrapper
 		.wrapper
-			a(href="/auth/join") JOIN
-			a(href="/auth/login") LOGIN
-			a(href="/auth/logout") LOGOUT
+			if user.id
+				a(href="/auth/logout") LOGOUT
+			else
+				a(href="/auth/join") JOIN
+				a(href="/auth/login") LOGIN
 	.header-wrapper
 		.wrapper
 			h1.logo-wrapper
