@@ -6,7 +6,7 @@ const { pool } = require('../modules/mysql-pool');
 const { err, alert, extName, srcPath } = require('../modules/util');
 const pagers = require('../modules/pagers');
 const router = express.Router();
-const pugs = { 
+const pugs = {
 	css: 'board', 
 	js: 'board', 
 	title: 'Express Board', 

@@ -16,7 +16,7 @@ router.post('/logon', async (req, res, next) => {
 	let sql, value, r, rs, compare;
 	let { userid, userpw } = req.body;
 	// SELECT userpw FROM auth WHERE userid='booldook';
-	sql = 'SELECT userpw FROM auth WHERE userid=?';
+	sql = 'SELECT * FROM auth WHERE userid=?';
 	value = [userid];
 	r = await pool.query(sql, value);
 	if(r[0].length == 1) {
@@ -24,7 +24,14 @@ router.post('/logon', async (req, res, next) => {
 		compare = await bcrypt.compare(userpw + process.env.BCRYPT_SALT, r[0][0].userpw);
 		if(compare) {
 			// 패스워드도 일치
-			res.send('로그인됨');
+			rs = r[0][0];
+			req.session.user = {
+				id: rs.id,
+				userid: rs.userid,
+				username: rs.username,
+				email: rs.email,
+			}
+			res.redirect('/');
 		}
 		else {
 			// 패스워드가 틀림
