@@ -26,8 +26,9 @@ const err = (code, msg) => {
 	}
 }
 
-const alert = (msg) => {
-	return `<script>alert('${msg}'); history.go(-1);</script>`;
+const alert = (msg, loc) => {
+	if(loc) return `<script>alert('${msg}'); location.href="${loc}";</script>`;
+	else return `<script>alert('${msg}'); history.go(-1);</script>`;
 }
 
 const extName = (filename) => {
