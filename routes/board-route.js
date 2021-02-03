@@ -109,11 +109,36 @@ router.get('/remove/:id', isUser, async (req, res, next) => {
 		sql = 'SELECT savefile FROM board WHERE id=? AND uid=?';
 		value = [req.params.id, req.session.user.id];
 		r = await pool.query(sql, value);
-		rs = r[0][0];
-		if(rs.savefile) await fs.remove(realPath(rs.savefile));
-		sql = 'DELETE FROM board WHERE id=? AND uid=?';
+		if(r[0].length == 0) res.send(alert('정상적인 접근이 아닙니다.'));
+		else {
+			rs = r[0][0];
+			if(rs.savefile) await fs.remove(realPath(rs.savefile));
+			sql = 'DELETE FROM board WHERE id=? AND uid=?';
+			r = await pool.query(sql, value);
+			res.redirect('/board');
+		}
+	}
+	catch(e) {
+		next(err(e.message));
+	}
+});
+
+router.get('/change/:id', isUser, async (req, res, next) => {
+	try {
+		let sql, value, rs, r;
+		sql = 'SELECT * FROM board WHERE id=? AND uid=?';
+		value = [req.params.id, req.session.user.id];
 		r = await pool.query(sql, value);
-		res.redirect('/board');
+		if(r[0].length == 0) res.send(alert('정상적인 접근이 아닙니다.'));
+		else {
+			rs = r[0][0];
+			if(rs.savefile) {
+				rs.filename = rs.orifile;
+				rs.src = imgExt.includes(extName(rs.savefile)) ? srcPath(rs.savefile) : null;
+			}
+			res.send('작업중');
+			// res.json('board/update', { ...pugs, rs });
+		}
 	}
 	catch(e) {
 		next(err(e.message));
