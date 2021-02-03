@@ -11,7 +11,8 @@ const router = express.Router();
 const pugs = {
 	css: 'board', 
 	js: 'board', 
-	title: 'Express Board', 
+	title: 'Express Board',
+	tinyKey: process.env.TINY_KEY, 
 	headerTitle: 'Node/Express를 활용한 게시판' 
 }
 
@@ -77,8 +78,7 @@ router.get(['/', '/list'], async (req, res, next) => {
 });
 
 router.get('/create', isUser, (req, res, next) => {
-	const pug = { ...pugs, tinyKey: process.env.TINY_KEY }
-	res.render('board/create', pug);
+	res.render('board/create', pugs);
 });
 
 router.post('/save', isUser, upload.single('upfile'), async (req, res, next) => {
@@ -136,8 +136,28 @@ router.get('/change/:id', isUser, async (req, res, next) => {
 				rs.filename = rs.orifile;
 				rs.src = imgExt.includes(extName(rs.savefile)) ? srcPath(rs.savefile) : null;
 			}
-			res.send('작업중');
-			// res.json('board/update', { ...pugs, rs });
+			res.render('board/change', { ...pugs, rs });
+		}
+	}
+	catch(e) {
+		next(err(e.message));
+	}
+});
+
+router.get('/api/remove/:id', isUser, async (req, res, next) => {
+	try {
+		let sql, value, r, rs, id;
+		id = req.params.id;
+		sql = 'SELECT savefile FROM board WHERE id=? AND uid=?';
+		value = [req.params.id, req.session.user.id];
+		r = await pool.query(sql, value);
+		if(r[0].length == 0) res.json({ error: '삭제할 파일이 존재하지 않습니다.' })
+		else {
+			rs = r[0][0];
+			await fs.remove(realPath(rs.savefile));
+			sql = 'UPDATE board SET orifile=NULL, savefile=NULL WHERE id=? AND uid=?';
+			r = await pool.query(sql, value);
+			res.json({ code: 200 });
 		}
 	}
 	catch(e) {

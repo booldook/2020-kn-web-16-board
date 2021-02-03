@@ -32,3 +32,16 @@ function onRev(id) {
 		location.href = '/board/remove/'+id;
 	}
 }
+
+function onApiRemove(id) {
+	if(confirm("첨부파일을 삭제하면 저장여부와 상관없이 즉시 삭제됩니다.")) {
+		$.get('/board/api/remove/'+id, function(r) {
+			if(r.code == 200) {
+				$('.file-wrap .legacy').remove();
+			}
+			else {
+				alert(r.error);
+			}
+		});
+	}
+}
