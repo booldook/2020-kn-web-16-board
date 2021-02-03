@@ -29,5 +29,5 @@ block content
 			a.btn.btn-success(href="/board") 리스트
 			if user.id == rs.uid
 				a.btn.btn-info.mx-1(href=`/board/change/${rs.id}`) 수정
-				a.btn.btn-danger(href=`/board/remove/${rs.id}`) 삭제
+				a.btn.btn-danger(href=`javascript: onRev(${rs.id});`) 삭제
 		include ../include/modal

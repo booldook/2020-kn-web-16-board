@@ -20,9 +20,15 @@ function onMobile() {
 	$('.mobile-sub').stop().slideToggle(300);
 }
 
+$(window).resize(onResize);
 function onResize(e) {
 	if($(this).width() > 767) {
 		$('.mobile-sub').stop().slideUp(0);
 	}
 }
-$(window).resize(onResize);
+
+function onRev(id) {
+	if(confirm("정말로 삭제하시겠습니까?")) {
+		location.href = '/board/remove/'+id;
+	}
+}

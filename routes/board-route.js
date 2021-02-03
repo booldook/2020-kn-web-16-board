@@ -1,9 +1,10 @@
 const express = require('express');
 const moment = require('moment');
 const path = require('path');
+const fs = require('fs-extra');
 const { upload, imgExt } = require('../modules/multer');
 const { pool } = require('../modules/mysql-pool');
-const { err, alert, extName, srcPath } = require('../modules/util');
+const { err, alert, extName, srcPath, realPath } = require('../modules/util');
 const pagers = require('../modules/pager');
 const { isUser, isGuest } = require('../modules/auth');
 const router = express.Router();
@@ -83,8 +84,8 @@ router.get('/create', isUser, (req, res, next) => {
 router.post('/save', isUser, upload.single('upfile'), async (req, res, next) => {
 	try {
 		const { title, content, writer } = req.body;
-		let sql = 'INSERT INTO board SET title=?, content=?, writer=?';
-		const value = [title, content, writer];
+		let sql = 'INSERT INTO board SET title=?, content=?, writer=?, uid=?';
+		const value = [title, content, writer, req.session.user.id];
 		if(req.banExt) {
 			res.send(alert(`${req.banExt} 파일은 업로드 할 수 없습니다.`));
 		}
@@ -102,6 +103,21 @@ router.post('/save', isUser, upload.single('upfile'), async (req, res, next) => 
 	}
 });
 
-
+router.get('/remove/:id', isUser, async (req, res, next) => {
+	try {
+		let sql, value, rs, r;
+		sql = 'SELECT savefile FROM board WHERE id=? AND uid=?';
+		value = [req.params.id, req.session.user.id];
+		r = await pool.query(sql, value);
+		rs = r[0][0];
+		if(rs.savefile) await fs.remove(realPath(rs.savefile));
+		sql = 'DELETE FROM board WHERE id=? AND uid=?';
+		r = await pool.query(sql, value);
+		res.redirect('/board');
+	}
+	catch(e) {
+		next(err(e.message));
+	}
+});
 
 module.exports = router;
