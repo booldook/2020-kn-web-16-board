@@ -48,11 +48,11 @@ router.get('/view/:id', async (req, res, next) => {
 		sql = 'SELECT id FROM board_ip WHERE bid=? AND ip=?';
 		value = [rs.id, ip.getClientIp(req)];
 		r = await pool.query(sql, value);
+		sql = 'INSERT INTO board_ip SET bid=?, ip=?';
+		await pool.query(sql, value);
 		if(r[0].length == 0) {
 			sql = 'UPDATE board SET readnum = readnum + 1 WHERE id='+rs.id;
 			await pool.query(sql);
-			sql = 'INSERT INTO board_ip SET bid=?, ip=?';
-			await pool.query(sql, value);
 		}
 		res.render('board/view', { ...pugs, rs });
 	}
