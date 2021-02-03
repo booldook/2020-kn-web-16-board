@@ -26,6 +26,7 @@
 					.legacy {
 						padding: 0.5em 0;
 						@include flex($FS, $CT);
+						img {max-width: 80px; max-height: 80px;}
 						a {padding-top: 0.35em;}
 					}
 				}

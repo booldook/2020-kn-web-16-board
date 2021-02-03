@@ -247,6 +247,11 @@
   align-items: center;
 }
 
+.change-wrapper .list-wrapper .list-wrap:nth-child(3) .list .legacy img {
+  max-width: 80px;
+  max-height: 80px;
+}
+
 .change-wrapper .list-wrapper .list-wrap:nth-child(3) .list .legacy a {
   padding-top: 0.35em;
 }

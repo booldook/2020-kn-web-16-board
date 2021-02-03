@@ -5,6 +5,7 @@ block js
 block content
 	.change-wrapper.wrapper
 		form(action="/board/update" method="post" onsubmit="return onUpdate(this);" enctype="multipart/form-data")
+			input(type="hidden" name="id" value=`${rs.id}`)
 			ul.list-wrapper
 				li.list-wrap
 					.title 제목

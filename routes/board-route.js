@@ -2,6 +2,7 @@ const express = require('express');
 const moment = require('moment');
 const path = require('path');
 const fs = require('fs-extra');
+const ip = require('request-ip');
 const { upload, imgExt } = require('../modules/multer');
 const { pool } = require('../modules/mysql-pool');
 const { err, alert, extName, srcPath, realPath } = require('../modules/util');
@@ -43,6 +44,16 @@ router.get('/view/:id', async (req, res, next) => {
 			rs.filename = rs.orifile;
 			rs.src = imgExt.includes(extName(rs.savefile)) ? srcPath(rs.savefile) : null;
 		}
+		console.log(ip.getClientIp(req));
+		sql = 'SELECT id FROM board_ip WHERE bid=? AND ip=?';
+		value = [rs.id, ip.getClientIp(req)];
+		r = await pool.query(sql, value);
+		if(r[0].length == 0) {
+			sql = 'UPDATE board SET readnum = readnum + 1 WHERE id='+rs.id;
+			await pool.query(sql);
+			sql = 'INSERT INTO board_ip SET bid=?, ip=?';
+			await pool.query(sql, value);
+		}
 		res.render('board/view', { ...pugs, rs });
 	}
 	catch(e) {
@@ -83,9 +94,10 @@ router.get('/create', isUser, (req, res, next) => {
 
 router.post('/save', isUser, upload.single('upfile'), async (req, res, next) => {
 	try {
-		const { title, content, writer } = req.body;
-		let sql = 'INSERT INTO board SET title=?, content=?, writer=?, uid=?';
-		const value = [title, content, writer, req.session.user.id];
+		let sql, value, rs, r;
+		let { title, content, writer } = req.body;
+		sql = 'INSERT INTO board SET title=?, content=?, writer=?, uid=?';
+		value = [title, content, writer, req.session.user.id];
 		if(req.banExt) {
 			res.send(alert(`${req.banExt} 파일은 업로드 할 수 없습니다.`));
 		}
@@ -94,7 +106,7 @@ router.post('/save', isUser, upload.single('upfile'), async (req, res, next) => 
 				sql += ', orifile=?, savefile=?';
 				value.push(req.file.originalname, req.file.filename);
 			}
-			const r = await pool.query(sql, value);
+			r = await pool.query(sql, value);
 			res.redirect('/board');
 		}
 	}
@@ -158,6 +170,39 @@ router.get('/api/remove/:id', isUser, async (req, res, next) => {
 			sql = 'UPDATE board SET orifile=NULL, savefile=NULL WHERE id=? AND uid=?';
 			r = await pool.query(sql, value);
 			res.json({ code: 200 });
+		}
+	}
+	catch(e) {
+		next(err(e.message));
+	}
+});
+
+router.post('/update', isUser, upload.single('upfile'), async (req, res, next) => {
+	try {
+		let sql, value, rs, r;
+		let { title, content, writer, id } = req.body;
+		if(req.file) {
+			sql = 'SELECT savefile FROM board WHERE id=? AND uid=?';
+			value = [id, req.session.user.id];
+			r = await pool.query(sql, value);
+			if(r[0].length && r[0][0].savefile) {
+				await fs.remove(realPath(r[0][0].savefile));
+			}
+		}
+		sql = 'UPDATE board SET title=?, content=?, writer=? ';
+		value = [title, content, writer];
+		if(req.banExt) {
+			res.send(alert(`${req.banExt} 파일은 업로드 할 수 없습니다.`));
+		}
+		else {
+			if(req.file) {
+				sql += ', orifile=?, savefile=?';
+				value.push(req.file.originalname, req.file.filename);
+			}
+			sql += ' WHERE id=? AND uid=?';
+			value.push(id, req.session.user.id);
+			r = await pool.query(sql, value);
+			res.redirect('/board');
 		}
 	}
 	catch(e) {
