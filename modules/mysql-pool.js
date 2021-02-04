@@ -43,8 +43,11 @@ where : {
 */
 
 /******* ORDER ********/
-// ORDER BY id DESC => {id: 'DESC'}
-// ORDER BY uid ASC, id DESC => [{uid: 'ASC'},{id: 'DESC'}]
+// ORDER BY id DESC => ['id', 'DESC']
+// ORDER BY uid ASC, id DESC => [['uid', 'ASC'],['id', 'DESC']]
+
+/******* LIMIT ********/
+// LIMIT 0, 5 => [0, 5];
 
 /******* router 실행 ********/
 // await sqlGen('board', ['I', 'U', 'D', 'S'], {});
@@ -92,11 +95,18 @@ const sqlGen = async (next, table, mode, opt) => {
 			throw new Error('삭제와 수정은 where절이 필요합니다.');
 		}
 
-		if(order && Array.isArray(order)) {
-			for(let i in order) {
-				sql += ` ${i == 0 ? 'ORDER BY' : ','} ${order[i][0]} ${order[i][1]} `;
+		if(order) {
+			if(Array.isArray(order[0])) {
+				for(let i in order) {
+					sql += ` ${i == 0 ? 'ORDER BY' : ','} ${order[i][0]} ${order[i][1]} `;
+				}
+			}
+			else {
+				sql += ` ORDER BY ${order[0]} ${order[1]} `;
 			}
 		}
+
+		if(limit && Array.isArray(limit)) sql += ` LIMIT ${limit[0]}, ${limit[1]} `;
 
 
 		console.log(sql);
