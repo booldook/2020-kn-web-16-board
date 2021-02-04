@@ -1,3 +1,4 @@
+const { err } = require('../modules/util');
 const mysql = require('mysql2/promise');
 const pool = mysql.createPool({
 	host: process.env.DB_HOST,
@@ -52,10 +53,10 @@ where : {
 /******* router 실행 ********/
 // await sqlGen('board', ['I', 'U', 'D', 'S'], {});
 
-const sqlGen = async (next, table, mode, opt) => {
+const sqlGen = async (next, table, mode, opt={}) => {
 	try {
-		let {	field=[], data={}, file, where, order, limit=[] } = opt;
-		let sql, value=[], r, rs, tmp;
+		let {	field=[], data={}, file, where, order, limit } = opt;
+		let sql, value=[], r, tmp;
 	
 		mode = mode.toUpperCase();
 		if(mode == 'I') {
@@ -81,18 +82,18 @@ const sqlGen = async (next, table, mode, opt) => {
 		sql = sql.substr(0, sql.length - 1);
 	
 		if(where && Array.isArray(where)) {
-			sql += ` WHERE ${where[0]} ${ where[2] || '='} ${where[2] == 'LIKE'? '%' : ''}${where[1]}${where[2] == 'LIKE' ? '%' : ''} `;
+			sql += ` WHERE ${where[0]} ${ where[2] || '='} '${where[2] == 'LIKE'? '%' : ''}${where[1]}${where[2] == 'LIKE' ? '%' : ''}' `;
 		}
 		if(where && where.op && where.field) {
 			let op = where.op.trim().toUpperCase();
 			let field = where.field;
 			for(let i in field) {
 				sql += (i == 0) ? ' WHERE ' : ' ' + op + ' ';
-				sql += ` ${field[i][0]} ${field[i][2] || '='} ${field[i][2] == 'LIKE'? '%' : ''}${field[i][1]}${field[i][2] == 'LIKE' ? '%' : ''} `;
+				sql += ` ${field[i][0]} ${field[i][2] || '='} '${field[i][2] == 'LIKE'? '%' : ''}${field[i][1]}${field[i][2] == 'LIKE' ? '%' : ''}' `;
 			}
 		}
 		if((mode == 'U' || mode == 'D') && !sql.includes('WHERE')) {
-			throw new Error('삭제와 수정은 where절이 필요합니다.');
+			throw new Error('수정 및 삭제시에는 WHERE절이 필요합니다.');
 		}
 
 		if(order) {
@@ -108,14 +109,13 @@ const sqlGen = async (next, table, mode, opt) => {
 
 		if(limit && Array.isArray(limit)) sql += ` LIMIT ${limit[0]}, ${limit[1]} `;
 
-
 		console.log(sql);
 		console.log(value);
 		r = await pool.query(sql, value);
 		return r[0];
 	}
 	catch(e) {
-		next(e);
+		next(err(e.message || e));
 	}
 }
 

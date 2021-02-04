@@ -18,88 +18,99 @@ const pugs = {
 }
 
 router.get('/download/:id', async (req, res, next) => {
-	const opt = {
-		field: ['orifile', 'savefile'],
-		where: ['id', req.params.id]
-	};
-	const rs = await sql(next, 'board', 'S', opt);
-	filePath = realPath(rs[0].savefile);
-	res.download(filePath, rs[0].orifile);
+	try {
+		let sql, r, rs, filePath;
+		sql = 'SELECT orifile, savefile FROM board WHERE id='+req.params.id;
+		r = await pool.query(sql);
+		rs = r[0][0];
+		// __dirname: d:\임덕규_수업\16.board\routes
+		// ../uploads: d:\임덕규_수업\16.board\uploads\20210129_11\
+		filePath = path.join(__dirname, '../uploads', rs.savefile.substr(0, 9), rs.savefile);
+		res.download(filePath, rs.orifile);
+	}
+	catch(e) {
+		next(err(e.message));
+	}
 });
 
 router.get('/view/:id', async (req, res, next) => {
-	// 게시물 가져오기
-	let opt = { where: ['id', req.params.id] };
-	const rs = await sql(next, 'board', 'S', opt);
-	rs[0].created = moment(rs[0].created).format('YYYY-MM-DD');
-	if(rs[0].savefile) {
-		rs[0].filename = rs[0].orifile;
-		rs[0].src = imgExt.includes(extName(rs[0].savefile)) ? srcPath(rs[0].savefile) : null;
-	}
-
-	// 현재 게시물의 같은아이피 정보 가져오기(1)
-	opt = {
-		field: ['id'], 
-		where: {op: 'and', field:[['bid', rs[0].id],['ip', ip.getClientIp(req)]]}
-	}
-	const rs2 = await sql(next, 'board_ip', 'S', opt);
-
-	// 현재 아이피 정보 남기기.
-	opt = {field: ['bid', 'ip'], data: {bid: req.params.id, ip: ip.getClientIp(req)}}
-	await sql(next, 'board_ip', 'I', opt);
-
-	// (1)의 결과의 갯수가 0이면(현재IP로 열람하지 않았다면) board의 readnum을 더해준다.
-	if(rs2.length == 0) {
-		opt = {
-			field: ['readnum'], 
-			data: {readnum: Number(rs[0].readnum) + 1}, 
-			where: ['id', req.params.id]
+	try {
+		let sql, r, rs, file;
+		sql = 'SELECT * FROM board WHERE id='+req.params.id;
+		r = await pool.query(sql);
+		rs = r[0][0];
+		rs.created = moment(rs.created).format('YYYY-MM-DD');
+		if(rs.savefile) {
+			rs.filename = rs.orifile;
+			rs.src = imgExt.includes(extName(rs.savefile)) ? srcPath(rs.savefile) : null;
 		}
-		await sql(next, 'board', 'U', opt);
+		sql = 'SELECT id FROM board_ip WHERE bid=? AND ip=?';
+		value = [rs.id, ip.getClientIp(req)];
+		r = await pool.query(sql, value);
+		sql = 'INSERT INTO board_ip SET bid=?, ip=?';
+		await pool.query(sql, value);
+		if(r[0].length == 0) {
+			sql = 'UPDATE board SET readnum = readnum + 1 WHERE id='+rs.id;
+			await pool.query(sql);
+		}
+		res.render('board/view', { ...pugs, rs });
 	}
-
-	// 결과를 뿌려라
-	res.render('board/view', { ...pugs, rs: rs[0] });
+	catch(e) {
+		next(err(e.message));
+	}
 });
 
 router.get(['/', '/list'], async (req, res, next) => {
-	let opt = { field: ['count(*)'] }
-	const rs = await sql(next, 'board', 'S', opt);
-
-	pager = pagers(req.query.page || 1, rs[0]['count(*)']);
-
-	opt = { order: ['id', 'desc'], limit: [pager.startIdx, pager.listCnt] }
-	const rs2 = await sql(next, 'board', 'S', opt);
-	const rs3 = rs2.map((v) => {
-		v.wdate = moment(v.wdate).format('YYYY-MM-DD');
-		if(v.savefile) {
-			let ext = path.extname(v.savefile).substr(1).toLowerCase();
-			ext = (ext == 'jpeg') ? 'jpg': ext;
-			ext = ext.substr(0, 3);
-			v.icon = `/img/ext/${ext}.png`;
-		}
-		else v.icon = '/img/empty.png';
-		return v;
-	});
-	res.render('board/list', { ...pugs, rs: rs3, pager });
+	try {
+		let sql, value, r, rs, pager;
+		sql = 'SELECT count(*) FROM board';
+		r = await pool.query(sql);
+		pager = pagers(req.query.page || 1, r[0][0]['count(*)']);
+		sql = 'SELECT * FROM board ORDER BY id DESC LIMIT ?, ?';
+		value = [pager.startIdx, pager.listCnt];
+		r = await pool.query(sql, value);
+		rs = r[0].map((v) => {
+			v.wdate = moment(v.wdate).format('YYYY-MM-DD');
+			if(v.savefile) {
+				let ext = path.extname(v.savefile).substr(1).toLowerCase();
+				ext = (ext == 'jpeg') ? 'jpg': ext;
+				ext = ext.substr(0, 3);
+				v.icon = `/img/ext/${ext}.png`;
+			}
+			else v.icon = '/img/empty.png';
+			return v;
+		});
+		res.render('board/list', { ...pugs, rs, pager });
+	}
+	catch(e) {
+		next(err(e.message));
+	}
 });
 
 router.get('/create', isUser, (req, res, next) => {
 	res.render('board/create', pugs);
 });
 
-router.post('/save', isUser, upload.single('upfile'), async(req, res, next) => {
-	if(req.banExt) {
-		res.send(alert(`${req.banExt} 파일은 업로드 할 수 없습니다.`));
-	}
-	else {
-		const opt = {
-			file: req.file,
-			field: ['title', 'content', 'writer', 'uid'],
-			data: {...req.body, uid: req.session.user.id}
+router.post('/save', isUser, upload.single('upfile'), async (req, res, next) => {
+	try {
+		let sql, value, rs, r;
+		let { title, content, writer } = req.body;
+		sql = 'INSERT INTO board SET title=?, content=?, writer=?, uid=?';
+		value = [title, content, writer, req.session.user.id];
+		if(req.banExt) {
+			res.send(alert(`${req.banExt} 파일은 업로드 할 수 없습니다.`));
 		}
-		const rs = await sql(next, 'board', 'I', opt);
-		res.redirect('/board');
+		else {
+			if(req.file) {
+				sql += ', orifile=?, savefile=?';
+				value.push(req.file.originalname, req.file.filename);
+			}
+			r = await pool.query(sql, value);
+			res.redirect('/board');
+		}
+	}
+	catch(e) {
+		next(err(e.message));
 	}
 });
 
