@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const ip = require('request-ip');
 const { upload, imgExt } = require('../modules/multer');
-const { pool } = require('../modules/mysql-pool');
+const { pool, sqlGen: sql } = require('../modules/mysql-pool');
 const { err, alert, extName, srcPath, realPath } = require('../modules/util');
 const pagers = require('../modules/pager');
 const { isUser, isGuest } = require('../modules/auth');
@@ -16,6 +16,10 @@ const pugs = {
 	tinyKey: process.env.TINY_KEY, 
 	headerTitle: 'Node/Express를 활용한 게시판' 
 }
+
+router.get('test', async (req, res, next) => {
+	const rs = sql(next, 'board', 'S', {});
+});
 
 router.get('/download/:id', async (req, res, next) => {
 	try {

@@ -31,10 +31,8 @@ const data = req.body;
 let sql = 'INSERT INTO score SET ';
 let value = [];
 
-// [[k, v], [k, v], [k, v]];
-const temp = Object.entries(data).filter(function (v) {
-	return field.includes(v[0]);
-});
+// [[k, v], [k, v], [k, v], [k, v]];
+const temp = Object.entries(data).filter(v => field.includes(v[0]));
 
 for(let v of temp) {
 	sql += v[0] + '=?,';
