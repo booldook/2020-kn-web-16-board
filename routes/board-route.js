@@ -122,7 +122,7 @@ router.get('/remove/:id', isUser, async (req, res, next) => {
 		next(err(e.message));
 	}
 });
-
+-
 router.get('/change/:id', isUser, async (req, res, next) => {
 	try {
 		let sql, value, rs, r;
