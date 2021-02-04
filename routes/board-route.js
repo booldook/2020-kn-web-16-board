@@ -44,7 +44,6 @@ router.get('/view/:id', async (req, res, next) => {
 			rs.filename = rs.orifile;
 			rs.src = imgExt.includes(extName(rs.savefile)) ? srcPath(rs.savefile) : null;
 		}
-		console.log(ip.getClientIp(req));
 		sql = 'SELECT id FROM board_ip WHERE bid=? AND ip=?';
 		value = [rs.id, ip.getClientIp(req)];
 		r = await pool.query(sql, value);

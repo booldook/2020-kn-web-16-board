@@ -6,6 +6,7 @@ const path = require('path');
 const { err } = require('./modules/util');
 const session = require('./modules/session');
 const local = require('./modules/local');
+const logger = require('./modules/logger');
 
 /************* Server **************/
 app.listen(process.env.PORT, () => {
@@ -33,8 +34,10 @@ const boardRouter = require('./routes/board-route');
 const apiRouter = require('./routes/api-route');
 const galleryRouter = require('./routes/gallery-route');
 
+app.use(logger('common'));
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/storages', express.static(path.join(__dirname, 'uploads')));
+app.use(logger('combined'));
 app.use('/auth', authRouter);
 app.use('/board', boardRouter);
 app.use('/api', apiRouter);
