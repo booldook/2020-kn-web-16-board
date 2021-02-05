@@ -1,0 +1,36 @@
+extends ../layout/layout-default
+block js
+	script(src=`https://cdn.tiny.cloud/1/${tinyKey}/tinymce/5/tinymce.min.js` referrerpolicy="origin")
+	script(src="/js/editor.js")
+block content
+	.change-wrapper.wrapper
+		form(action="/board/update" method="post" onsubmit="return onUpdate(this);" enctype="multipart/form-data")
+			input(type="hidden" name="id" value=`${rs.id}`)
+			ul.list-wrapper
+				li.list-wrap
+					.title 제목
+					.list
+						input.form-control(type="text" name="title" value=`${rs.title}` placeholder="제목")
+				li.list-wrap
+					.title 작성자
+					.list
+						input.form-control(type="text" name="writer" value=`${rs.writer}` placeholder="작성자")
+				li.list-wrap
+					.title 첨부파일
+					.list
+						.file-wrap
+							if rs.savefile
+								.legacy
+									if rs.src
+										img.thumb.mr-2(src=`${rs.src}` alt=`${rs.filename}`)
+									span= rs.filename
+									a.ml-2(href=`javascript: onApiRemove(${rs.id});`)
+										i.fa.fa-times.text-danger.xl
+							.update
+								input.form-control-file(type="file" name="upfile")
+						.text-success.pt-3 * jpg png gif pdf zip ppt xls doc hwp txt만 업로드 가능합니다.
+				li.list-wrap
+					.w-100
+						textarea#content.form-control(name="content")= rs.content
+			.text-center.py-4
+				button.btn.btn-primary 저장

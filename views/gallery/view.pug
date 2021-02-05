@@ -1,0 +1,33 @@
+extends ../layout/layout-default
+block content
+	.view-wrapper.wrapper
+		ul.list-wrap
+			li.list
+				.title 제목
+				.content.bold.lg= rs.title
+			li.list
+				.title 작성자
+				.content= rs.writer
+			li.list
+				.title 작성일
+				.content= rs.created
+			li.list
+				.title 조회수
+				.content= rs.readnum
+			if rs.filename
+				li.list
+					.title 첨부파일
+					.content
+						if rs.src
+							img.thumb(src=`${rs.src}` onclick=`onModal('${rs.src}')` alt=`${rs.filename}`)
+						span= rs.filename
+						a.ml-2(href=`/board/download/${rs.id}`)
+							i.fa.fa-download.text-info.xl
+			li.list
+				.content!= rs.content
+		.text-center.my-4
+			a.btn.btn-success(href="/board") 리스트
+			if user.id == rs.uid
+				a.btn.btn-info.mx-1(href=`/board/change/${rs.id}`) 수정
+				a.btn.btn-danger(href=`javascript: onRev(${rs.id});`) 삭제
+		include ../include/modal

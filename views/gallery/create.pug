@@ -1,0 +1,29 @@
+extends ../layout/layout-default
+block js
+	script(src=`https://cdn.tiny.cloud/1/${tinyKey}/tinymce/5/tinymce.min.js` referrerpolicy="origin")
+	script(src="/js/editor.js")
+block content
+	.create-wrapper.wrapper
+		form(action="/gallery/save" method="post" onsubmit="return onSave(this);" enctype="multipart/form-data")
+			ul.list-wrapper
+				li.list-wrap
+					.title 제목
+					.list
+						input.form-control(type="text" name="title" placeholder="제목")
+				li.list-wrap
+					.title 작성자
+					.list
+						input.form-control(type="text" name="writer" placeholder="작성자")
+				li.list-wrap.file-wrap
+					.title 첨부이미지
+					.list
+						input.form-control-file(type="file" name="upfile")
+					.bts
+						a.bt-plus(href="javascript: onPlus();")
+							i.fa.fa-plus-circle.text-success
+				li.text-center.text-success.pb-3 * jpg png gif 파일이 업로드 가능합니다.
+				li.list-wrap.tiny-wrap
+					.w-100
+						textarea#content.form-control(name="content")
+			.text-center.py-4
+				button.btn.btn-primary 저장

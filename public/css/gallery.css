@@ -1,0 +1,41 @@
+.create-wrapper .list-wrapper {
+  border-top: 2px solid #f1f1f1;
+  border-bottom: 2px solid #f1f1f1;
+  padding-top: 2em;
+  border-bottom: none;
+}
+
+.create-wrapper .list-wrapper .list-wrap {
+  margin: 0.5em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-wrapper .list-wrapper .list-wrap .title {
+  width: 15%;
+  line-height: 40px;
+  height: 40px;
+  min-width: 150px;
+  margin-right: 30px;
+  border-right: 3px solid #2d7218;
+}
+
+@media screen and (max-width: 575px) {
+  .create-wrapper .list-wrapper .list-wrap .title {
+    min-width: 80px;
+  }
+}
+
+.create-wrapper .list-wrapper .list-wrap .list {
+  flex: 1 1;
+  line-height: 1.25;
+}
+
+.create-wrapper .list-wrapper .list-wrap.file-wrap .list {
+  padding-top: 0.325em;
+}
+
+.create-wrapper .list-wrapper .list-wrap.tiny-wrap {
+  padding-top: 2em;
+}
