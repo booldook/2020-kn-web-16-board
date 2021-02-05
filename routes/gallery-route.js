@@ -22,6 +22,7 @@ router.get('/create', isUser, (req, res, next) => {
 });
 
 router.post('/save', isUser, uploadImg.array('upfile', 10), async (req, res, next) => {
+	console.log(req.banExt)
 	res.json(req.files);
 });
 

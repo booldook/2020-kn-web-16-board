@@ -48,6 +48,6 @@ const imgFilter = (req, file, cb) => {
 	}
 }
 const upload = multer({ storage, limits, fileFilter });
-const uploadImg = multer({ storage, limits, imgFilter });
+const uploadImg = multer({ storage, limits, fileFilter: imgFilter });
 
 module.exports = { upload, uploadImg, imgExt, allowExt };

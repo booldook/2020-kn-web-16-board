@@ -26,12 +26,19 @@ function onSave(f) {
 		f.title.focus();
 		return false;
 	}
-	for(var i=0, isFile=false; i<f.upfile.length; i++) {
-		if(f.upfile[i].files.length == 1) {
-			isFile = true;
-			break;
+	var isFile = false;
+	if(Array.isArray(f.upfile)) {
+		for(var i=0; i<f.upfile.length; i++) {
+			if(f.upfile[i].files.length == 1) {
+				isFile = true;
+				break;
+			}
 		}
 	}
+	else {
+		if(f.upfile.files.length == 1) isFile = true;
+	}
+	
 	if(!isFile) {
 		alert('첨부이미지는 1개 이상 등록하셔야 합니다.');
 		return false;
