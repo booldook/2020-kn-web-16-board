@@ -118,6 +118,19 @@ CREATE TABLE IF NOT EXISTS `gallery_file` (
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
+-- 테이블 booldook.gallery_ip 구조 내보내기
+CREATE TABLE IF NOT EXISTS `gallery_ip` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `bid` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `bid` (`bid`) USING BTREE,
+  CONSTRAINT `FK_gallery_ip_gallery` FOREIGN KEY (`bid`) REFERENCES `gallery` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
 -- 테이블 booldook.sessions 구조 내보내기
 CREATE TABLE IF NOT EXISTS `sessions` (
   `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
