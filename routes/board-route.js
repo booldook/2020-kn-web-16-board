@@ -18,19 +18,26 @@ const pugs = {
 }
 
 router.get('/download/:id', async (req, res, next) => {
-	const opt = {
+	let opt, rs;
+	opt = {
 		field: ['orifile', 'savefile'],
 		where: ['id', req.params.id]
 	};
-	const rs = await sql(next, 'board', 'S', opt);
+	rs = await sql(next, 'board', 'S', opt);
 	filePath = realPath(rs[0].savefile);
 	res.download(filePath, rs[0].orifile);
 });
 
 router.get('/view/:id', async (req, res, next) => {
 	// 게시물 가져오기
-	let opt = { where: ['id', req.params.id] };
-	const rs = await sql(next, 'board', 'S', opt);
+	let opt;
+	let rs; 	// board rs 
+	let rs2; 	// board_ip rs
+	
+	opt = { 
+		where: ['id', req.params.id] 
+	};
+	rs = await sql(next, 'board', 'S', opt);
 	rs[0].created = moment(rs[0].created).format('YYYY-MM-DD');
 	if(rs[0].savefile) {
 		rs[0].filename = rs[0].orifile;
@@ -42,7 +49,7 @@ router.get('/view/:id', async (req, res, next) => {
 		field: ['id'], 
 		where: {op: 'and', field:[['bid', rs[0].id],['ip', ip.getClientIp(req)]]}
 	}
-	const rs2 = await sql(next, 'board_ip', 'S', opt);
+	rs2 = await sql(next, 'board_ip', 'S', opt);
 
 	// 현재 아이피 정보 남기기.
 	opt = {field: ['bid', 'ip'], data: {bid: req.params.id, ip: ip.getClientIp(req)}}
@@ -63,14 +70,24 @@ router.get('/view/:id', async (req, res, next) => {
 });
 
 router.get(['/', '/list'], async (req, res, next) => {
-	let opt = { field: ['count(*)'] }
-	const rs = await sql(next, 'board', 'S', opt);
-
+	let opt;
+	let rs;		// board count(*)
+	let rs2;	// board list rs
+	let rs3;	// board list -> map
+	
+	opt = { 
+		field: ['count(*)'] 
+	}
+	rs = await sql(next, 'board', 'S', opt);
 	pager = pagers(req.query.page || 1, rs[0]['count(*)']);
 
-	opt = { order: ['id', 'desc'], limit: [pager.startIdx, pager.listCnt] }
-	const rs2 = await sql(next, 'board', 'S', opt);
-	const rs3 = rs2.map((v) => {
+	opt = { 
+		order: ['id', 'desc'], 
+		limit: [pager.startIdx, pager.listCnt] 
+	}
+	rs2 = await sql(next, 'board', 'S', opt);
+	
+	rs3 = rs2.map((v) => {
 		v.wdate = moment(v.wdate).format('YYYY-MM-DD');
 		if(v.savefile) {
 			let ext = path.extname(v.savefile).substr(1).toLowerCase();
@@ -89,112 +106,133 @@ router.get('/create', isUser, (req, res, next) => {
 });
 
 router.post('/save', isUser, upload.single('upfile'), async(req, res, next) => {
+	let opt;
+
 	if(req.banExt) {
 		res.send(alert(`${req.banExt} 파일은 업로드 할 수 없습니다.`));
 	}
 	else {
-		const opt = {
+		opt = {
 			file: req.file,
 			field: ['title', 'content', 'writer', 'uid'],
 			data: {...req.body, uid: req.session.user.id}
 		}
-		const rs = await sql(next, 'board', 'I', opt);
+		await sql(next, 'board', 'I', opt);
 		res.redirect('/board');
 	}
 });
 
 router.get('/remove/:id', isUser, async (req, res, next) => {
-	try {
-		let sql, value, rs, r;
-		sql = 'SELECT savefile FROM board WHERE id=? AND uid=?';
-		value = [req.params.id, req.session.user.id];
-		r = await pool.query(sql, value);
-		if(r[0].length == 0) res.send(alert('정상적인 접근이 아닙니다.'));
-		else {
-			rs = r[0][0];
-			if(rs.savefile) await fs.remove(realPath(rs.savefile));
-			sql = 'DELETE FROM board WHERE id=? AND uid=?';
-			r = await pool.query(sql, value);
-			res.redirect('/board');
+	let opt;
+	let rs;
+
+	opt = {
+		field: ['savefile'],
+		where: {
+			op: 'AND',
+			field: [['id', req.params.id], ['uid', req.session.user.id]]
 		}
 	}
-	catch(e) {
-		next(err(e.message));
+	rs = await sql(next, 'board', 'S', opt);
+	if(rs.length == 0) res.send(alert('정상적인 접근이 아닙니다.'));
+	else {
+		if(rs[0].savefile) await fs.remove(realPath(rs[0].savefile));
+		opt = {
+			where: {
+				op: 'AND',
+				field: [['id', req.params.id], ['uid', req.session.user.id]]
+			}
+		}
+		await sql(next, 'board', 'D', opt);
+		res.redirect('/board');
 	}
 });
--
+
 router.get('/change/:id', isUser, async (req, res, next) => {
-	try {
-		let sql, value, rs, r;
-		sql = 'SELECT * FROM board WHERE id=? AND uid=?';
-		value = [req.params.id, req.session.user.id];
-		r = await pool.query(sql, value);
-		if(r[0].length == 0) res.send(alert('정상적인 접근이 아닙니다.'));
-		else {
-			rs = r[0][0];
-			if(rs.savefile) {
-				rs.filename = rs.orifile;
-				rs.src = imgExt.includes(extName(rs.savefile)) ? srcPath(rs.savefile) : null;
-			}
-			res.render('board/change', { ...pugs, rs });
+	let opt;
+	let rs;
+
+	opt = {
+		where: {
+			op: 'AND',
+			field: [['id', req.params.id], ['uid', req.session.user.id]]
 		}
 	}
-	catch(e) {
-		next(err(e.message));
+	rs = await sql(next, 'board', 'S', opt);
+	if(rs.length == 0) res.send(alert('정상적인 접근이 아닙니다.'));
+	else {
+		if(rs[0].savefile) {
+			rs[0].filename = rs[0].orifile;
+			rs[0].src = imgExt.includes(extName(rs[0].savefile)) ? srcPath(rs[0].savefile) : null;
+		}
+		res.render('board/change', { ...pugs, rs: rs[0] });
 	}
 });
 
 router.get('/api/remove/:id', isUser, async (req, res, next) => {
-	try {
-		let sql, value, r, rs, id;
-		id = req.params.id;
-		sql = 'SELECT savefile FROM board WHERE id=? AND uid=?';
-		value = [req.params.id, req.session.user.id];
-		r = await pool.query(sql, value);
-		if(r[0].length == 0) res.json({ error: '삭제할 파일이 존재하지 않습니다.' })
-		else {
-			rs = r[0][0];
-			await fs.remove(realPath(rs.savefile));
-			sql = 'UPDATE board SET orifile=NULL, savefile=NULL WHERE id=? AND uid=?';
-			r = await pool.query(sql, value);
-			res.json({ code: 200 });
+	let opt;
+	let rs;
+
+	opt = {
+		field: ['savefile'],
+		where: {
+			op: 'AND',
+			field: [['id', req.params.id], ['uid', req.session.user.id]]
 		}
 	}
-	catch(e) {
-		next(err(e.message));
+	rs = await sql(next, 'board', 'S', opt);
+	if(rs.length == 0) res.json({ error: '삭제할 파일이 존재하지 않습니다.' });
+	else {
+		await fs.remove(realPath(rs[0].savefile));
+		opt = {
+			field: ['orifile', 'savefile'],
+			data: { orifile: null, savefile: null },
+			where: {
+				op: 'AND',
+				field: [['id', req.params.id], ['uid', req.session.user.id]]
+			}
+		}
+		await sql(next, 'board', 'U', opt);
+		res.json({ code: 200 });
 	}
 });
 
 router.post('/update', isUser, upload.single('upfile'), async (req, res, next) => {
-	try {
-		let sql, value, rs, r;
-		let { title, content, writer, id } = req.body;
-		if(req.file) {
-			sql = 'SELECT savefile FROM board WHERE id=? AND uid=?';
-			value = [id, req.session.user.id];
-			r = await pool.query(sql, value);
-			if(r[0].length && r[0][0].savefile) {
-				await fs.remove(realPath(r[0][0].savefile));
-			}
-		}
-		sql = 'UPDATE board SET title=?, content=?, writer=? ';
-		value = [title, content, writer];
-		if(req.banExt) {
-			res.send(alert(`${req.banExt} 파일은 업로드 할 수 없습니다.`));
-		}
-		else {
-			if(req.file) {
-				sql += ', orifile=?, savefile=?';
-				value.push(req.file.originalname, req.file.filename);
-			}
-			sql += ' WHERE id=? AND uid=?';
-			value.push(id, req.session.user.id);
-			r = await pool.query(sql, value);
-			res.redirect('/board');
-		}
+	let opt;
+	let rs;
+
+	if(req.banExt) {
+		res.send(alert(`${req.banExt} 파일은 업로드 할 수 없습니다.`));
 	}
-	catch(e) {
-		next(err(e.message));
+	else {
+		
+		// 업로드 된 파일이 존재하여, 기존 파일을 삭제
+		if(req.file) {
+			opt = {
+				field: ['savefile'],
+				where: {
+					op: 'AND',
+					field: [['id', req.body.id], ['uid', req.session.user.id]]
+				}
+			}
+			rs = await sql(next, 'board', 'S', opt);
+			if(rs.length && rs[0].savefile) {
+				await fs.remove(realPath(rs[0].savefile));
+			}
+		}
+
+		// 업로드된 새로운 파일정보와 업데이트 데이터를 저장(수정)
+		opt = {
+			field: ['title', 'content', 'writer'],
+			data: req.body,
+			file: req.file || null,
+			where: {
+				op: 'AND',
+				field: [['id', req.body.id], ['uid', req.session.user.id]]
+			}
+		}
+		await sql(next, 'board', 'U', opt);
+		res.redirect('/board');
 	}
 });
 
