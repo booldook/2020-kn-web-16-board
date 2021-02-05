@@ -36,6 +36,18 @@ const fileFilter = (req, file, cb) => {
 		cb(null, false);
 	}
 }
-const upload = multer({ storage, limits, fileFilter });
 
-module.exports = { upload, imgExt, allowExt };
+const imgFilter = (req, file, cb) => {
+	var ext = path.extname(file.originalname).substr(1).toLowerCase(); 
+	if(imgExt.includes(ext)) {
+		cb(null, true);
+	}
+	else {
+		req.banExt = ext;
+		cb(null, false);
+	}
+}
+const upload = multer({ storage, limits, fileFilter });
+const uploadImg = multer({ storage, limits, imgFilter });
+
+module.exports = { upload, uploadImg, imgExt, allowExt };

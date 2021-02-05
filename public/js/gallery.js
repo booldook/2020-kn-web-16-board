@@ -20,3 +20,22 @@ function onMinus(el) {
 	$(".file-wrap").eq(0).find("a").show();
 }
 
+function onSave(f) {
+	if(f.title.value.trim() == "") {
+		alert('제목을 입력하세요.');
+		f.title.focus();
+		return false;
+	}
+	for(var i=0, isFile=false; i<f.upfile.length; i++) {
+		if(f.upfile[i].files.length == 1) {
+			isFile = true;
+			break;
+		}
+	}
+	if(!isFile) {
+		alert('첨부이미지는 1개 이상 등록하셔야 합니다.');
+		return false;
+	}
+	return true;
+}
+
