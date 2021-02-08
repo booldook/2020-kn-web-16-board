@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const ip = require('request-ip');
 const { uploadImg, imgExt } = require('../modules/multer');
-const { pool, sqlGen: sql } = require('../modules/mysql-pool');
+const { pool, sqlMiddle: sql } = require('../modules/mysql-pool');
 const { err, alert, extName, srcPath, realPath } = require('../modules/util');
 const pagers = require('../modules/pager');
 const { isUser, isGuest } = require('../modules/auth');
@@ -22,9 +22,11 @@ router.get('/create', isUser, (req, res, next) => {
 });
 
 router.post('/save', isUser, uploadImg.array('upfile', 10), async (req, res, next) => {
+	let opt = {
+		
+	}
+	await sql('gallery', 'I', opt)(req, res, next);
 
-	let rs;
-	rs = sql(next, 'gallery')
 });
 
 
