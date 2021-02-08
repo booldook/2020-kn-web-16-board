@@ -53,7 +53,7 @@ where : {
 /******* router 실행 ********/
 // await sqlGen('board', ['I', 'U', 'D', 'S'], {});
 
-const sqlGen = async (next, table, mode, opt={}) => {
+const sqlFn = async (table, mode, opt, req, res, next) => {
 	try {
 		let {	field=[], data={}, file, where, order, limit } = opt;
 		let sql, value=[], r, tmp;
@@ -119,5 +119,15 @@ const sqlGen = async (next, table, mode, opt={}) => {
 	}
 }
 
+const sqlGen = async (next, table, mode, opt={}) => {
+	return await sqlFn(table, mode, opt, null, null, next);
+}
 
-module.exports = { mysql, pool, sqlGen };
+const sqlMiddle = async (table, mode, opt={}) => {
+	return async (req, res, next) => {
+		await sqlFn(table, mode, opt, req, res, next);
+	}
+}
+
+
+module.exports = { mysql, pool, sqlGen, sqlMiddle };
