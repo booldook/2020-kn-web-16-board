@@ -59,11 +59,12 @@ const sqlFn = async (table, mode, opt, req, res, next) => {
 			field = [], 
 			data = {}, 
 			file = (req ? req.file : null), 
-			files = (req ? req.files : null), 
+			files = (req ? req.files : null),
+			fileTable, 
 			where, 
-			order, 
+			order,
 			limit } = opt;
-		let sql, value=[], r, tmp;
+		let sql, value=[], r, fid, tmp;
 
 		data = { ...data, ...(req && req.body ? req.body : {}) };
 	
@@ -84,9 +85,6 @@ const sqlFn = async (table, mode, opt, req, res, next) => {
 		tmp = Object.entries(data).filter( v => field.includes(v[0]));
 
 		if(file) tmp.push(['savefile', file.filename],['orifile', file.originalname]);
-		if(files) {
-			// upload.array();
-		}
 		
 		for(let v of tmp) {
 			sql += v[0] + '=?,';
@@ -103,6 +101,7 @@ const sqlFn = async (table, mode, opt, req, res, next) => {
 			for(let i in field) {
 				sql += (i == 0) ? ' WHERE ' : ' ' + op + ' ';
 				sql += ` ${field[i][0]} ${field[i][2] || '='} '${field[i][2] == 'LIKE'? '%' : ''}${field[i][1]}${field[i][2] == 'LIKE' ? '%' : ''}' `;
+				if(field[i][0] === 'id') fid = field[i][1];
 			}
 		}
 		if((mode == 'U' || mode == 'D') && !sql.includes('WHERE')) {
@@ -125,6 +124,28 @@ const sqlFn = async (table, mode, opt, req, res, next) => {
 		console.log(sql);
 		console.log(value);
 		r = await pool.query(sql, value);
+
+		if(files) {
+			// upload.array();
+			if(mode=='I' && r[0].insertId) {
+				fid = r[0].insertId;
+				for(let v of req.files) {
+					let sql = `INSERT INTO ${fileTable} SET savefile=?, orifile=?, fid=?`;
+					let value = [v.filename, v.originalname, fid];
+					await pool.query(sql, value);
+				}
+			}
+			if(mode == 'U') {
+
+			}
+			if(mode == 'D') {
+
+			}
+			if(mode == 'S') {
+
+			}
+		}
+
 		return r[0];
 	}
 	catch(e) {

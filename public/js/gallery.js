@@ -46,3 +46,11 @@ function onSave(f) {
 	return true;
 }
 
+var $grid = $(".grid").imagesLoaded(onImagesLoaded);
+function onImagesLoaded() {
+	$grid.masonry({
+		itemSelector: '.grid-item',
+		columnWidth: '.grid-sizer',
+		percentPosition: true
+	});
+}

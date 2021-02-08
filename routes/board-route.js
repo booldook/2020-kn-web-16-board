@@ -8,6 +8,7 @@ const { pool, sqlGen: sql } = require('../modules/mysql-pool');
 const { err, alert, extName, srcPath, realPath } = require('../modules/util');
 const pagers = require('../modules/pager');
 const { isUser, isGuest } = require('../modules/auth');
+const pager = require('../modules/pager');
 const router = express.Router();
 const pugs = {
 	css: 'board', 
@@ -74,12 +75,14 @@ router.get(['/', '/list'], async (req, res, next) => {
 	let rs;		// board count(*)
 	let rs2;	// board list rs
 	let rs3;	// board list -> map
+	let pager;
 	
 	opt = { 
 		field: ['count(*)'] 
 	}
 	rs = await sql(next, 'board', 'S', opt);
 	pager = pagers(req.query.page || 1, rs[0]['count(*)']);
+	pager.router = 'board';
 
 	opt = { 
 		order: ['id', 'desc'], 

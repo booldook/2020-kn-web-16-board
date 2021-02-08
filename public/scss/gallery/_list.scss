@@ -1,0 +1,23 @@
+.list-wrapper {
+	.grid-item,
+	.grid-sizer {
+		width: 20%;
+		padding: 2%;
+		@include desktop {
+			width: 25%;
+			padding: 2.5%;
+		}
+		@include laptop {
+			width: 33.3333%;
+			padding: 3%;
+		}
+		@include tablet {
+			width: 50%;
+			padding: 3.5%;
+		}
+		@include mobile {
+			width: 100%;
+			padding: 4%;
+		}
+	}
+}

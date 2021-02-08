@@ -1,21 +1,21 @@
 ul.pager-wrapper.pagination.justify-content-center
 	if pager.firstPage
 		li.page-item
-			a.page-link(href=`/board?page=${pager.firstPage}`)
+			a.page-link(href=`/${pager.router}?page=${pager.firstPage}`)
 				i.fa.fa-step-backward
 	else
 		li.page-item.disabled
 			a.page-link.fa.fa-step-backward
 	if pager.prevPager
 		li.page-item
-			a.page-link(href=`/board?page=${pager.prevPager}`)
+			a.page-link(href=`/${pager.router}?page=${pager.prevPager}`)
 				i.fa.fa-angle-double-left
 	else
 		li.page-item.disabled
 			a.page-link.fa.fa-angle-double-left
 	if pager.prevPage
 		li.page-item.mr-3
-			a.page-link(href=`/board?page=${pager.prevPage}`)
+			a.page-link(href=`/${pager.router}?page=${pager.prevPage}`)
 				i.fa.fa-angle-left
 	else
 		li.page-item.disabled.mr-3
@@ -23,27 +23,27 @@ ul.pager-wrapper.pagination.justify-content-center
 	- for(let i=pager.startPage; i<=pager.endPage; i++)
 		if i == pager.page
 			li.page-item.active
-				a.page-link(href=`/board?page=${i}`)= i
+				a.page-link(href=`/${pager.router}?page=${i}`)= i
 		else
 			li.page-item
-				a.page-link(href=`/board?page=${i}`)= i
+				a.page-link(href=`/${pager.router}?page=${i}`)= i
 	if pager.nextPage
 		li.page-item.ml-3
-			a.page-link(href=`/board?page=${pager.nextPage}`)
+			a.page-link(href=`/${pager.router}?page=${pager.nextPage}`)
 				i.fa.fa-angle-right
 	else
 		li.page-item.disabled.ml-3
 			a.page-link.fa.fa-angle-right
 	if pager.nextPager		
 		li.page-item
-			a.page-link(href=`/board?page=${pager.nextPager}`)
+			a.page-link(href=`/${pager.router}?page=${pager.nextPager}`)
 				i.fa.fa-angle-double-right
 	else
 		li.page-item.disabled
 			a.page-link.fa.fa-angle-double-right
 	if pager.lastPage
 		li.page-item
-			a.page-link(href=`/board?page=${pager.lastPage}`)
+			a.page-link(href=`/${pager.router}?page=${pager.lastPage}`)
 				i.fa.fa-step-forward
 	else
 		li.page-item.disabled

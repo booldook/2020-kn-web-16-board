@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Masonry</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/reset.css">
+	<style>
+		.wrapper {max-width: 1200px; width: 96%; margin: auto;}
+		.grid-item, .grid-sizer { width: 20%; padding: 2%;}
+		@media screen and (max-width: 991px) {
+			.grid-item, .grid-sizer { width: 25%; padding: 3%;}
+		}
+		@media screen and (max-width: 767px) {
+			.grid-item, .grid-sizer { width: 33.3333%; padding: 4%;}
+		}
+		@media screen and (max-width: 575px) {
+			.grid-item, .grid-sizer { width: 50%; padding: 5%;}
+		}
+	</style>
+	<script src="/js/jquery-3.5.1.min.js"></script>
+	<script src="/js/imagesloaded.pkgd.min.js"></script>
+	<script src="/js/masonry.pkgd.min.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<ul class="grid">
+			<li class="grid-sizer"></li>
+			<li class="grid-item">
+				<img src="/img/ext/doc.png" class="w-100">
+			</li>
+			<li class="grid-item grid-item">
+				<img src="/img/ext/gif.png" class="w-100">
+			</li>
+			<li class="grid-item">
+				<img src="/img/ext/hwp.png" class="w-100">
+			</li>
+			<li class="grid-item">
+				<img src="/img/ext/jpg.png" class="w-100">
+			</li>
+			<li class="grid-item">
+				<img src="/img/ext/md.png" class="w-100">
+			</li>
+			<li class="grid-item grid-item">
+				<img src="/img/ext/pdf.png" class="w-100">
+			</li>
+			<li class="grid-item">
+				<img src="/img/ext/ppt.png" class="w-100">
+			</li>
+			<li class="grid-item">
+				<img src="/img/ext/txt.png" class="w-100">
+			</li>
+		</ul>
+	</div>
+	<script>
+	var $grid = $('.grid').imagesLoaded(function(){
+		$grid.masonry({
+			// options
+			itemSelector: '.grid-item',
+			columnWidth: '.grid-sizer',
+			percentPosition: true
+		});
+	});
+	
+	</script>
+</body>
+</html>

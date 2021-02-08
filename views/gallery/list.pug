@@ -1,27 +1,14 @@
 extends ../layout/layout-default
+block js 
+	script(src="/js/imagesloaded.pkgd.min.js")
+	script(src="/js/masonry.pkgd.min.js")
 block content
-	.list-wrapper.wrapper
-		table.tb-list.table.table-striped.text-center
-			thead.thead-light
-				tr
-					th 번호
-					th 제목
-					th 작성자
-					th 파일
-					th 작성일
-					th 조회수
-			tbody
-				each v in rs
-					tr
-						td= v.id
-						td.text-left
-							a(href=`/board/view/${v.id}`)= v.title
-						td= v.writer
-						td
-							if v.icon
-								img.icon(src=`${v.icon}` alt="icon")
-						td= v.wdate
-						td= v.readnum
+	.list-wrapper.wrapper 
+		ul.grid
+			li.grid-sizer
+			each v in rs
+				li.grid-item 
+					img.w-100(src=`${v.src[0]}` alt="img")
 		include ../include/pager
 		if user.id
 			.text-center.py-3
