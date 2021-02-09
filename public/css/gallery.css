@@ -88,6 +88,22 @@
   }
 }
 
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: rgba(0, 4, 14, 0.8);
+  transition: all 0.35s;
+  opacity: 0;
+}
+
+.modal-wrapper.active {
+  opacity: 1;
+}
+
 .create-wrapper .list-wrapper {
   border-top: 2px solid #f1f1f1;
   border-bottom: 2px solid #f1f1f1;

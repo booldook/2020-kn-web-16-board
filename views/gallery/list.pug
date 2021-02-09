@@ -7,7 +7,7 @@ block content
 		ul.grid
 			li.grid-sizer
 			each v in rs
-				li.grid-item
+				li.grid-item(onclick=`onInfo(this, event, ${v.id})`)
 					.grid-inside
 						if v.src[1]
 							img.w-100.ani(src=`${v.src[0]}` alt="img")
@@ -15,11 +15,19 @@ block content
 							img.w-100(src=`${v.src[0]}` alt="img")
 						if v.src[1]
 							img.w-100.ani(src=`${v.src[1]}` alt="img")
-					.grid-info 
-						i.fa.fa-edit(onclick="onEdit(this)") 
-						i.fa.fa-trash-alt(onclick="onDelete(this)") 
-						i.fa.fa-ellipsis-h(onclick="onInfo(this)") 
+					.grid-info(onclick="event.stopPropagation();")
+						i.fa.fa-edit(onclick=`onEdit(this, event, ${v.id})`) 
+						i.fa.fa-trash-alt(onclick=`onDelete(this, event, ${v.id})`) 
+						i.fa.fa-ellipsis-h(onclick=`onInfo(this, event, ${v.id})`) 
 		include ../include/pager
 		if user.id
 			.text-center.py-3
 				a.btn.btn-success(href="/board/create") 글쓰기
+	.modal-wrapper(onclick="onInfoClose()" style="display: none;")
+		.bt-close
+			i.fa.fa-times 
+		.modal-wrap(onclick="event.stopPropagation()")
+			.swiper-container 
+				.swiper-wrapper 
+					.swiper-slide 
+						img.mw-100(src="/img/error/404.png" alt="이미지")

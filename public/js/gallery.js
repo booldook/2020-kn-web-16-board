@@ -54,3 +54,30 @@ function onImagesLoaded() {
 		percentPosition: true
 	});
 }
+
+
+function onInfo(el, e, id) {
+	e.stopPropagation();
+	$(".modal-wrapper").css('display', 'flex');
+	$(".modal-wrapper").css('opacity');
+	$(".modal-wrapper").addClass('active');
+}
+
+function onDelete(el, e, id) {
+	e.stopPropagation();
+	if( confirm('정말로 삭제하시겠습니까?') ){
+		location.href = '/gallery/delete/'+id;
+	}
+}
+
+function onEdit(el, e, id) {
+	e.stopPropagation();
+	location.href = '/gallery/change/'+id;
+}
+
+function onInfoClose() {
+	$(".modal-wrapper").removeClass('active');
+	setTimeout(function(){
+		$(".modal-wrapper").css('display', 'none');
+	}, 350);
+}
