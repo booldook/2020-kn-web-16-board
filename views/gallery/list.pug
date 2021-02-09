@@ -1,7 +1,10 @@
 extends ../layout/layout-default
+block css 
+	link(rel="stylesheet" href="/css/swiper-bundle.min.css")
 block js 
 	script(src="/js/imagesloaded.pkgd.min.js")
 	script(src="/js/masonry.pkgd.min.js")
+	script(src="/js/swiper-bundle.min.js")
 block content
 	.list-wrapper.wrapper 
 		ul.grid
@@ -31,3 +34,11 @@ block content
 				.swiper-wrapper 
 					.swiper-slide 
 						img.mw-100(src="/img/error/404.png" alt="이미지")
+					.swiper-slide 
+						img.mw-100(src="/img/error/500.png" alt="이미지")
+				.bts 
+					.bt 
+						i.fa.fa-info-circle
+					.bt 
+						i.fa.fa-download
+				.swiper-pagination

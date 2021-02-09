@@ -63,11 +63,61 @@
 
 .modal-wrapper {
 	@include layer(fixed, 0, 0, 0, 0);
+	@include flex($CT, $CT);
 	z-index: 9999;
 	background-color: rgba(0, 4, 14, 0.8);
 	transition: all 0.35s;
 	opacity: 0;
 	&.active {
 		opacity: 1;
+	}
+	.bt-close {
+		width: 40px;
+		height: 40px;
+		background-color: $colorRed;
+		color: #fff;
+		text-align: center;
+		line-height: 40px;
+		font-size: $lg;
+		cursor: pointer;
+		@include layer(absolute, 0, 0, auto, auto);
+	}
+	.modal-wrap {
+		width: auto;
+		max-width: 70%;
+		.swiper-container {
+			padding-bottom: 7em;
+			.swiper-wrapper {
+				.swiper-slide {
+					text-align: center;
+				}
+			}
+			.bts {
+				@include layer(absolute, auto, 0, 4em, 0);
+				@include flex($CT, $CT);
+				color: $colorLight;
+				font-size: $xl;
+				.fa {
+					margin: 0 0.25em;
+					cursor: pointer;
+					transition: all 0.3s;
+					&:hover {
+						color: $pagerActive;
+					}
+				}
+			}
+			.swiper-pagination {
+				.swiper-pagination-bullet {
+					width: 12px;
+					height: 12px;
+					background: #fff;
+					opacity: .3;
+				}
+				.swiper-pagination-bullet-active {
+					opacity: 1;
+					background: $colorRed;
+				}
+			}
+		}
 	}
 }

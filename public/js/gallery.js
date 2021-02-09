@@ -1,3 +1,6 @@
+var swiper;
+
+
 function onPlus(el) {
 	if($(".file-wrapper .file-wrap").length < 9) {
 		var html = ``;
@@ -61,6 +64,15 @@ function onInfo(el, e, id) {
 	$(".modal-wrapper").css('display', 'flex');
 	$(".modal-wrapper").css('opacity');
 	$(".modal-wrapper").addClass('active');
+	if(!swiper) {
+		swiper = new Swiper('.swiper-container', {
+			loop: true,
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true
+			},
+		});
+	}
 }
 
 function onDelete(el, e, id) {
