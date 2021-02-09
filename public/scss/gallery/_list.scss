@@ -1,23 +1,62 @@
 .list-wrapper {
+	.grid-item {
+		border: 1px solid $colorLighter;
+		border-radius: 4px;
+		cursor: pointer;
+		overflow: hidden;
+		.grid-inside {
+			@include flex($FS, $FS);
+			overflow: hidden;
+			img {
+				transition: all 0.5s;
+			}
+		}
+		.grid-info {
+			padding: 1em;
+			background-color: rgba(0, 4, 14, 0.8);
+			color: $colorLighter;
+			@include layer(absolute, auto, 0, 0, 0);
+			@include flex($CT, $CT);
+			transform: translateY(3.5em);
+			transition: all 0.35s;
+			transition-delay: 0.25s;
+			.fa {
+				margin: 0 .5em;
+			}
+		}
+		&:hover {
+			.grid-info {
+				transform: translateY(0);
+			}
+			img.ani {
+				transform: translateX(-100%);
+			}
+		}
+	}
 	.grid-item,
 	.grid-sizer {
-		width: 20%;
-		padding: 2%;
+		width: 18%;
+		padding: 1%;
+		margin: 1%;
 		@include desktop {
-			width: 25%;
-			padding: 2.5%;
+			width: 22.5%;
+			padding: 1.25%;
+			margin: 1.25%;
 		}
 		@include laptop {
-			width: 33.3333%;
-			padding: 3%;
+			width: 30.3333%;
+			padding: 1.5%;
+			margin: 1.5%;
 		}
 		@include tablet {
-			width: 50%;
-			padding: 3.5%;
+			width: 46.5%;
+			padding: 1.75%;
+			margin: 1.75%;
 		}
 		@include mobile {
-			width: 100%;
-			padding: 4%;
+			width: 96%;
+			padding: 2%;
+			margin: 2%;
 		}
 	}
 }

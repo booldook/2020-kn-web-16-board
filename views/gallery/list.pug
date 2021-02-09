@@ -7,8 +7,18 @@ block content
 		ul.grid
 			li.grid-sizer
 			each v in rs
-				li.grid-item 
-					img.w-100(src=`${v.src[0]}` alt="img")
+				li.grid-item
+					.grid-inside
+						if v.src[1]
+							img.w-100.ani(src=`${v.src[0]}` alt="img")
+						else 
+							img.w-100(src=`${v.src[0]}` alt="img")
+						if v.src[1]
+							img.w-100.ani(src=`${v.src[1]}` alt="img")
+					.grid-info 
+						i.fa.fa-edit(onclick="onEdit(this)") 
+						i.fa.fa-trash-alt(onclick="onDelete(this)") 
+						i.fa.fa-ellipsis-h(onclick="onInfo(this)") 
 		include ../include/pager
 		if user.id
 			.text-center.py-3
