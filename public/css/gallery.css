@@ -97,6 +97,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   z-index: 9999;
   background-color: rgba(0, 4, 14, 0.8);
   transition: all 0.35s;
@@ -107,7 +108,7 @@
   opacity: 1;
 }
 
-.modal-wrapper .bt-close {
+.modal-wrapper .bt-red {
   width: 40px;
   height: 40px;
   background-color: #b61c11;
@@ -121,6 +122,50 @@
   right: 0;
   bottom: auto;
   left: auto;
+}
+
+.modal-wrapper .info-wrapper {
+  transition: all 0.35s;
+  transform: translateX(calc(-100% - 30px));
+  background-color: #fff;
+  width: 30%;
+  height: 100vh;
+  overflow-y: auto;
+  min-width: 300px;
+  position: absolute;
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  box-shadow: 12px 0 12px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  padding: 0 1.5em;
+}
+
+.modal-wrapper .info-wrapper.active {
+  transform: translateX(0);
+}
+
+.modal-wrapper .info-wrapper .lists {
+  margin-top: 80px;
+}
+
+.modal-wrapper .info-wrapper .lists .list {
+  margin-bottom: 1.5em;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.modal-wrapper .info-wrapper .lists .list .title {
+  font-size: 1.25em;
+  color: #555;
+  padding-left: 0.5em;
+  border-left: 3px solid #2d7218;
+}
+
+.modal-wrapper .info-wrapper .lists .list .content {
+  font-size: 1.125em;
+  color: #999;
+  padding: 1em 0 1em 1em;
 }
 
 .modal-wrapper .modal-wrap {

@@ -8,6 +8,10 @@
 	left: $left;
 }
 
+@mixin shadow($hori, $vert, $blur, $alpha) {
+	box-shadow: $hori $vert $blur rgba(0,0,0, $alpha);
+}
+
 @mixin bgDark($opacity) {
 	background-color: rgba(0, 0, 0, $opacity);
 }

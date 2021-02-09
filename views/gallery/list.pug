@@ -10,7 +10,7 @@ block content
 		ul.grid
 			li.grid-sizer
 			each v in rs
-				li.grid-item(onclick=`onInfo(this, event, ${v.id})`)
+				li.grid-item(onclick=`onModalShow(this, event, ${v.id})`)
 					.grid-inside
 						if v.src[1]
 							img.w-100.ani(src=`${v.src[0]}` alt="img")
@@ -21,30 +21,30 @@ block content
 					.grid-info(onclick="event.stopPropagation();")
 						i.fa.fa-edit(onclick=`onEdit(this, event, ${v.id})`) 
 						i.fa.fa-trash-alt(onclick=`onDelete(this, event, ${v.id})`) 
-						i.fa.fa-ellipsis-h(onclick=`onInfo(this, event, ${v.id})`) 
+						i.fa.fa-ellipsis-h(onclick=`onModalShow(this, event, ${v.id})`) 
 		include ../include/pager
 		if user.id
 			.text-center.py-3
 				a.btn.btn-success(href="/board/create") 글쓰기
-	.modal-wrapper(onclick="onInfoClose()" style="display: none;")
-		.bt-close
+	.modal-wrapper(onclick="onModalHide()" style="display: none;")
+		.bt-close.bt-red
 			i.fa.fa-times
-		.info-wrapper
-			.bt-hide 
+		.info-wrapper(onclick="event.stopPropagation()")
+			.bt-hide.bt-red(onclick="onInfoHide()")
 				i.fa.fa-arrow-left
 			ul.lists 
 				li.list
 					.title 제목
 					.content 제목입니다.
 				li.list
-					.title 제목
-					.content 제목입니다.
+					.title 작성자
+					.content 홍길동
 				li.list
-					.title 제목
-					.content 제목입니다.
+					.title 작성일
+					.content 2021-02-09 12:11:15
 				li.list
-					.title 제목
-					.content 제목입니다.
+					.title 내용
+					.content 내용입니다.
 		.modal-wrap(onclick="event.stopPropagation()")
 			.swiper-container 
 				.swiper-wrapper 
@@ -54,7 +54,7 @@ block content
 						img.mw-100(src="/img/error/500.png" alt="이미지")
 				.bts 
 					.bt 
-						i.fa.fa-info-circle
+						i.fa.fa-info-circle(onclick="onInfoShow();")
 					.bt 
 						i.fa.fa-download
 				.swiper-pagination
