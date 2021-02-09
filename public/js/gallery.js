@@ -95,7 +95,6 @@ function onModalHide() {
 	}, 350);
 }
 
-
 function onInfoShow() {
 	$('.info-wrapper').addClass('active');
 }
