@@ -131,7 +131,7 @@
 			opacity: 1;
 		}
 		.swiper-container {
-			padding-bottom: 7em;
+			padding-bottom: 1em;
 			.swiper-wrapper {
 				.swiper-slide {
 					@include flex($CT, $CT);
@@ -140,31 +140,34 @@
 					overflow: hidden;
 				}
 			}
-			.bts {
-				@include layer(absolute, auto, 0, 4em, 0);
-				@include flex($CT, $CT);
-				color: $colorLight;
-				font-size: $xl;
-				.fa {
-					margin: 0 0.25em;
-					cursor: pointer;
-					transition: all 0.3s;
-					&:hover {
-						color: $pagerActive;
-					}
+		}
+		.bts {
+			@include flex($CT, $CT);
+			color: $colorLight;
+			font-size: $xl;
+			.fa {
+				margin: 0 0.25em;
+				cursor: pointer;
+				transition: color 0.3s;
+				&:hover {
+					color: $pagerActive;
 				}
 			}
-			.swiper-pagination {
-				.swiper-pagination-bullet {
-					width: 12px;
-					height: 12px;
-					background: #fff;
-					opacity: .3;
-				}
-				.swiper-pagination-bullet-active {
-					opacity: 1;
-					background: $colorRed;
-				}
+		}
+		.swiper-pagination {
+			margin-top: 2em;
+			position: static;
+			text-align: center;
+			.swiper-pagination-bullet {
+				width: 12px;
+				height: 12px;
+				background: #fff;
+				opacity: .3;
+				margin: 3px;
+			}
+			.swiper-pagination-bullet-active {
+				opacity: 1;
+				background: $colorRed;
 			}
 		}
 	}

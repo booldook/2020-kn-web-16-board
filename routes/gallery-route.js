@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const ip = require('request-ip');
 const { uploadImg, imgExt } = require('../modules/multer');
 const { pool, sqlMiddle: sql } = require('../modules/mysql-pool');
-const { err, alert, extName, srcPath, realPath } = require('../modules/util');
+const { err, alert, extName, srcPath, realPath, datetime } = require('../modules/util');
 const pagers = require('../modules/pager');
 const { isUser, isGuest } = require('../modules/auth');
 const router = express.Router();
@@ -73,6 +73,7 @@ router.get('/api/view/:id', async (req, res, next) => {
 		sql = 'SELECT * FROM gallery WHERE id='+req.params.id;
 		r = await pool.query(sql);
 		rs = r[0][0];
+		rs.created = datetime(rs.created, 2);
 		sql = 'SELECT * FROM gallery_file WHERE fid='+req.params.id;
 		r2 = await pool.query(sql);
 		rs.src = r2[0].map(v => srcPath(v.savefile));

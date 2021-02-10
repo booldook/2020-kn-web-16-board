@@ -65,6 +65,18 @@ function onModalShow(el, e, id) {
 			html += '</div>';
 		}
 		$('.modal-wrapper .swiper-wrapper').html(html);
+		$('.modal-wrapper .info-wrapper .content').eq(0).html(r.title);
+		$('.modal-wrapper .info-wrapper .content').eq(1).html(r.writer);
+		$('.modal-wrapper .info-wrapper .content').eq(2).html(r.created);
+		$('.modal-wrapper .info-wrapper .content').eq(3).html(r.content);
+		if(r.src.length == 0) {
+			$('.modal-wrapper .fa-info-circle').css('font-size', '3em');
+			$('.modal-wrapper .fa-download').hide();
+		}
+		else {
+			$('.modal-wrapper .fa-info-circle').css('font-size', '');
+			$('.modal-wrapper .fa-download').show();
+		}
 		$('.modal-wrapper .swiper-wrapper').imagesLoaded(function(){
 			$('.modal-wrapper .loader').hide();
 			$('.modal-wrapper .modal-wrap').addClass('active');

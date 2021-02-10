@@ -190,7 +190,7 @@
 }
 
 .modal-wrapper .modal-wrap .swiper-container {
-  padding-bottom: 7em;
+  padding-bottom: 1em;
 }
 
 .modal-wrapper .modal-wrap .swiper-container .swiper-wrapper .swiper-slide {
@@ -202,12 +202,7 @@
   overflow: hidden;
 }
 
-.modal-wrapper .modal-wrap .swiper-container .bts {
-  position: absolute;
-  top: auto;
-  right: 0;
-  bottom: 4em;
-  left: 0;
+.modal-wrapper .modal-wrap .bts {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -215,24 +210,31 @@
   font-size: 1.25em;
 }
 
-.modal-wrapper .modal-wrap .swiper-container .bts .fa {
+.modal-wrapper .modal-wrap .bts .fa {
   margin: 0 0.25em;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: color 0.3s;
 }
 
-.modal-wrapper .modal-wrap .swiper-container .bts .fa:hover {
+.modal-wrapper .modal-wrap .bts .fa:hover {
   color: #fc8739;
 }
 
-.modal-wrapper .modal-wrap .swiper-container .swiper-pagination .swiper-pagination-bullet {
+.modal-wrapper .modal-wrap .swiper-pagination {
+  margin-top: 2em;
+  position: static;
+  text-align: center;
+}
+
+.modal-wrapper .modal-wrap .swiper-pagination .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
   background: #fff;
   opacity: .3;
+  margin: 3px;
 }
 
-.modal-wrapper .modal-wrap .swiper-container .swiper-pagination .swiper-pagination-bullet-active {
+.modal-wrapper .modal-wrap .swiper-pagination .swiper-pagination-bullet-active {
   opacity: 1;
   background: #b61c11;
 }
