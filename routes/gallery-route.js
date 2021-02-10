@@ -85,9 +85,18 @@ router.get('/api/view/:id', async (req, res, next) => {
 });
 
 router.get('/download', async (req, res, next) => {
-	// 숙제
-	const file = path.join(__dirname, req.query.file.replace('/storages', '../uploads'));
-	res.download(file);
+	try {
+		let sql, value, savefile, orifile, r;
+		savefile = req.query.file.split('/').pop();
+		sql = 'SELECT orifile FROM gallery_file WHERE savefile=?';
+		value = [savefile];
+		r = await pool.query(sql, value);
+		orifile = r[0][0].orifile;
+		res.download(realPath(savefile), orifile);
+	}
+	catch(e) {
+		next(err(e.message || e));
+	}
 });
 
 module.exports = router;
