@@ -108,6 +108,11 @@
   opacity: 1;
 }
 
+.modal-wrapper .loader {
+  color: #eaeaea;
+  font-size: 1.25em;
+}
+
 .modal-wrapper .bt-red {
   width: 40px;
   height: 40px;

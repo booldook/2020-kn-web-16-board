@@ -27,9 +27,10 @@ block content
 			.text-center.py-3
 				a.btn.btn-success(href="/board/create") 글쓰기
 	.modal-wrapper(onclick="onModalHide()" style="display: none;")
+		.loader.fa.fa-spinner.fa-spin
 		.bt-close.bt-red
 			i.fa.fa-times
-		.info-wrapper(onclick="event.stopPropagation()")
+		.info-wrapper.d-none(onclick="event.stopPropagation()")
 			.bt-hide.bt-red(onclick="onInfoHide()")
 				i.fa.fa-arrow-left
 			ul.lists 

@@ -121,8 +121,8 @@ const sqlFn = async (table, mode, opt, req, res, next) => {
 
 		if(limit && Array.isArray(limit)) sql += ` LIMIT ${limit[0]}, ${limit[1]} `;
 
-		console.log(sql);
-		console.log(value);
+		// console.log(sql);
+		// console.log(value);
 		r = await pool.query(sql, value);
 
 		if(files) {

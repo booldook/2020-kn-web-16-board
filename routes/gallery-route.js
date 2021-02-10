@@ -42,7 +42,7 @@ router.get(['/', '/list'], async (req, res, next) => {
 			v.src[1] = srcPath(r2[0][1].savefile);
 		}
 	}
-	console.log(pager);
+	// console.log(pager);
 	res.render('gallery/list', { ...pugs, rs, pager });
 });
 
@@ -54,7 +54,7 @@ router.get('/create', isUser, (req, res, next) => {
 router.post('/save', isUser, uploadImg.array('upfile', 10), async (req, res, next) => {
 	let sql, value, rs, r, fid;
 	sql = `INSERT INTO gallery SET title=?, content=?, writer=?, uid=?`;
-	value = [req.body.title, req.body.writer, req.body.content, req.session.user.id];
+	value = [req.body.title, req.body.content, req.body.writer, req.session.user.id];
 	rs = await pool.query(sql, value);
 	fid = rs[0].insertId;
 	if(req.files) {
@@ -67,5 +67,20 @@ router.post('/save', isUser, uploadImg.array('upfile', 10), async (req, res, nex
 	res.redirect('/gallery');
 });
 
+router.get('/api/view/:id', async (req, res, next) => {
+	try {
+		let sql, value, rs, r, r2;
+		sql = 'SELECT * FROM gallery WHERE id='+req.params.id;
+		r = await pool.query(sql);
+		rs = r[0][0];
+		sql = 'SELECT * FROM gallery_file WHERE fid='+req.params.id;
+		r2 = await pool.query(sql);
+		rs.src = r2[0];
+		res.json(rs);
+	}
+	catch(e) {
+		next(err(e.message || e));
+	}
+});
 
 module.exports = router;

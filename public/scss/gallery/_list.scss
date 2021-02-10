@@ -72,6 +72,10 @@
 	&.active {
 		opacity: 1;
 	}
+	.loader {
+		color: $colorLighter;
+		font-size: $xl;
+	}
 	.bt-red {
 		width: 40px;
 		height: 40px;

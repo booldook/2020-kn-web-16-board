@@ -49,18 +49,11 @@ function onSave(f) {
 	return true;
 }
 
-var $grid = $(".grid").imagesLoaded(onImagesLoaded);
-function onImagesLoaded() {
-	$grid.masonry({
-		itemSelector: '.grid-item',
-		columnWidth: '.grid-sizer',
-		percentPosition: true
-	});
-}
-
-
 function onModalShow(el, e, id) {
 	e.stopPropagation();
+	$.get('/gallery/api/view/'+id, function(r){
+		console.log(r);
+	});
 	$(".modal-wrapper").css('display', 'flex');
 	$(".modal-wrapper").css('opacity');
 	$(".modal-wrapper").addClass('active');
@@ -102,3 +95,15 @@ function onInfoShow() {
 function onInfoHide() {
 	$('.info-wrapper').removeClass('active');
 }
+
+function init() {
+	var $grid = $(".grid").imagesLoaded(onImagesLoaded);
+	function onImagesLoaded() {
+		$grid.masonry({
+			itemSelector: '.grid-item',
+			columnWidth: '.grid-sizer',
+			percentPosition: true
+		});
+	}
+}
+init();
