@@ -65,17 +65,19 @@ function onModalShow(el, e, id) {
 			html += '</div>';
 		}
 		$('.modal-wrapper .swiper-wrapper').html(html);
-		$('.modal-wrapper .loader').hide();
-		$('.modal-wrapper .modal-wrap').addClass('active');
-		if(swiper) swiper.destroy();
-		swiper = new Swiper('.swiper-container', {
-			spaceBetween: 10,
-			autoHeight: true,
-			loop: true,
-			pagination: {
-				el: '.swiper-pagination',
-				clickable: true
-			},
+		$('.modal-wrapper .swiper-wrapper').imagesLoaded(function(){
+			$('.modal-wrapper .loader').hide();
+			$('.modal-wrapper .modal-wrap').addClass('active');
+			if(swiper) swiper.destroy();
+			swiper = new Swiper('.swiper-container', {
+				spaceBetween: 10,
+				autoHeight: true,
+				loop: true,
+				pagination: {
+					el: '.swiper-pagination',
+					clickable: true
+				},
+			});
 		});
 	});
 }
