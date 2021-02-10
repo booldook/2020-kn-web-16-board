@@ -84,4 +84,10 @@ router.get('/api/view/:id', async (req, res, next) => {
 	}
 });
 
+router.get('/download', async (req, res, next) => {
+	// 숙제
+	const file = path.join(__dirname, req.query.file.replace('/storages', '../uploads'));
+	res.download(file);
+});
+
 module.exports = router;

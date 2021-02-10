@@ -1,3 +1,5 @@
+var swiperIdx = 0;
+var swiperSrc;
 var swiper;
 
 
@@ -58,6 +60,7 @@ function onModalShow(el, e, id) {
 	$('.modal-wrapper .loader').show();
 	$('.modal-wrapper .modal-wrap').removeClass('active');
 	$.get('/gallery/api/view/'+id, function(r){
+		swiperSrc = r.src;
 		console.log(r);
 		for(var i in r.src) {
 			html += '<div class="swiper-slide">';
@@ -90,9 +93,8 @@ function onModalShow(el, e, id) {
 					clickable: true
 				},
 			});
-			swiper.on('slideChange', function () {
-				console.log('slide changed');
-				console.log(swiper.realIndex);
+			swiper.on('slideChange', function() {
+				swiperIdx = swiper.realIndex;
 			});
 		});
 	});
@@ -124,6 +126,10 @@ function onInfoShow() {
 
 function onInfoHide() {
 	$('.info-wrapper').removeClass('active');
+}
+
+function onDownload() {
+	location.href = '/gallery/download?file='+swiperSrc[swiperIdx];
 }
 
 function init() {
