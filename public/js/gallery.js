@@ -90,6 +90,10 @@ function onModalShow(el, e, id) {
 					clickable: true
 				},
 			});
+			swiper.on('slideChange', function () {
+				console.log('slide changed');
+				console.log(swiper.realIndex);
+			});
 		});
 	});
 }
