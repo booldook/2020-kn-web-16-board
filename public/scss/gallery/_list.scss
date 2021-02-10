@@ -73,8 +73,9 @@
 		opacity: 1;
 	}
 	.loader {
+		@include center(9);
 		color: $colorLighter;
-		font-size: $xl;
+		font-size: 3em;
 	}
 	.bt-red {
 		width: 40px;
@@ -122,13 +123,21 @@
 		}
 	}
 	.modal-wrap {
+		opacity: 0;
+		transition: all 0.35s;
 		width: auto;
 		max-width: 70%;
+		&.active {
+			opacity: 1;
+		}
 		.swiper-container {
 			padding-bottom: 7em;
 			.swiper-wrapper {
 				.swiper-slide {
+					@include flex($CT, $CT);
 					text-align: center;
+					height: 60vh;
+					overflow: hidden;
 				}
 			}
 			.bts {

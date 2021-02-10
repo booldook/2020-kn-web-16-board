@@ -109,8 +109,13 @@
 }
 
 .modal-wrapper .loader {
+  z-index: 9;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: #eaeaea;
-  font-size: 1.25em;
+  font-size: 3em;
 }
 
 .modal-wrapper .bt-red {
@@ -174,8 +179,14 @@
 }
 
 .modal-wrapper .modal-wrap {
+  opacity: 0;
+  transition: all 0.35s;
   width: auto;
   max-width: 70%;
+}
+
+.modal-wrapper .modal-wrap.active {
+  opacity: 1;
 }
 
 .modal-wrapper .modal-wrap .swiper-container {
@@ -183,7 +194,12 @@
 }
 
 .modal-wrapper .modal-wrap .swiper-container .swiper-wrapper .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  height: 60vh;
+  overflow: hidden;
 }
 
 .modal-wrapper .modal-wrap .swiper-container .bts {

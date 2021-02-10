@@ -30,7 +30,7 @@ block content
 		.loader.fa.fa-spinner.fa-spin
 		.bt-close.bt-red
 			i.fa.fa-times
-		.info-wrapper.d-none(onclick="event.stopPropagation()")
+		.info-wrapper(onclick="event.stopPropagation()")
 			.bt-hide.bt-red(onclick="onInfoHide()")
 				i.fa.fa-arrow-left
 			ul.lists 
@@ -49,10 +49,6 @@ block content
 		.modal-wrap(onclick="event.stopPropagation()")
 			.swiper-container 
 				.swiper-wrapper 
-					.swiper-slide 
-						img.mw-100(src="/img/error/404.png" alt="이미지")
-					.swiper-slide 
-						img.mw-100(src="/img/error/500.png" alt="이미지")
 				.bts 
 					.bt 
 						i.fa.fa-info-circle(onclick="onInfoShow();")

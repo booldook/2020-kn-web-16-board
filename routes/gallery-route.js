@@ -69,13 +69,13 @@ router.post('/save', isUser, uploadImg.array('upfile', 10), async (req, res, nex
 
 router.get('/api/view/:id', async (req, res, next) => {
 	try {
-		let sql, value, rs, r, r2;
+		let sql, value, rs, r, r2, src=[];
 		sql = 'SELECT * FROM gallery WHERE id='+req.params.id;
 		r = await pool.query(sql);
 		rs = r[0][0];
 		sql = 'SELECT * FROM gallery_file WHERE fid='+req.params.id;
 		r2 = await pool.query(sql);
-		rs.src = r2[0];
+		rs.src = r2[0].map(v => srcPath(v.savefile));
 		res.json(rs);
 	}
 	catch(e) {

@@ -8,6 +8,14 @@
 	left: $left;
 }
 
+@mixin center($idx:1) {
+	z-index: $idx;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 @mixin shadow($hori, $vert, $blur, $alpha) {
 	box-shadow: $hori $vert $blur rgba(0,0,0, $alpha);
 }

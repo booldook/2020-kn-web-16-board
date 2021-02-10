@@ -50,22 +50,34 @@ function onSave(f) {
 }
 
 function onModalShow(el, e, id) {
+	var html = '';
 	e.stopPropagation();
-	$.get('/gallery/api/view/'+id, function(r){
-		console.log(r);
-	});
 	$(".modal-wrapper").css('display', 'flex');
 	$(".modal-wrapper").css('opacity');
 	$(".modal-wrapper").addClass('active');
-	if(!swiper) {
+	$('.modal-wrapper .loader').show();
+	$('.modal-wrapper .modal-wrap').removeClass('active');
+	$.get('/gallery/api/view/'+id, function(r){
+		console.log(r);
+		for(var i in r.src) {
+			html += '<div class="swiper-slide">';
+			html += '<img class="mw-100" src="'+r.src[i]+'" alt="image">';
+			html += '</div>';
+		}
+		$('.modal-wrapper .swiper-wrapper').html(html);
+		$('.modal-wrapper .loader').hide();
+		$('.modal-wrapper .modal-wrap').addClass('active');
+		if(swiper) swiper.destroy();
 		swiper = new Swiper('.swiper-container', {
+			spaceBetween: 10,
+			autoHeight: true,
 			loop: true,
 			pagination: {
 				el: '.swiper-pagination',
 				clickable: true
 			},
 		});
-	}
+	});
 }
 
 function onDelete(el, e, id) {
