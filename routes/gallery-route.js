@@ -27,10 +27,11 @@ router.get('/change/:id', isUser, async (req, res, next) => {
 		sql = 'SELECT * FROM gallery_file WHERE fid='+req.params.id;
 		r = await pool.query(sql);
 		rs.files = r[0];
-		res.json(rs);
+		for(let v of rs.files) v.src = srcPath(v.savefile);
+		res.render('gallery/change', { ...pugs, rs });
 	}
 	catch(e) {
-
+		next(err(e.message || e));
 	}
 });
 

@@ -1,0 +1,40 @@
+.change-wrapper {
+	.list-wrapper {
+		border-top: 2px solid $colorWhite;
+		border-bottom: 2px solid $colorWhite;
+		padding-top: 2em;
+		border-bottom: none;
+		.list-wrap {
+			margin: 0.5em 0;
+			@include flex($SB, $CT);
+			&.file-wrapper {
+				@include flex($FS, $CT);
+				.file-wrap {
+					flex-grow: 1;
+					@include flex($SB, $CT);
+					.legacy {
+						@include flex($FS, $CT);
+						img {max-width: 40px; max-height: 40px;}
+					}
+				}
+			}
+			.title {
+				width: 15%; line-height: 40px; height: 40px; min-width: 150px;
+				margin-right: 30px;
+				border-right: 3px solid $colorGreen;
+				@include mobile {
+					min-width: 80px;
+				}
+			}
+			.list {
+				flex: 1 1;
+				line-height: 1.25;
+			}
+			.bts > i {cursor: pointer;}
+			&.file-wrap {
+				.list {padding-top: 0.325em;}
+			}
+			&.tiny-wrap {padding-top: 2em;}
+		}
+	}
+}
