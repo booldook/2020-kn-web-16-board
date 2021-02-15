@@ -19,7 +19,21 @@ const pugs = {
 
 router.get('/delete/:id', isUser, async (req, res, next) => {
 	try {
-
+		let sql, value, r, rs;
+		sql = 'SELECT savefile FROM gallery_file WHERE fid='+req.params.id;
+		r = await pool.query(sql);
+		for(let v of r[0]) {
+			await fs.remove(realPath(v.savefile));
+		}
+		sql = 'DELETE FROM gallery WHERE id=? AND uid=?';
+		value = [req.params.id, req.session.user.id];
+		r = await pool.query(sql, value);
+		if(r[0].affectedRows > 0) {
+			res.redirect('/gallery');
+		}
+		else {
+			res.send(alert('삭제에 실패하였습니다.'))
+		}
 	}
 	catch(e) {
 		next(err(e.message || e));
