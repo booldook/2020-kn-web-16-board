@@ -299,6 +299,10 @@
   align-items: center;
 }
 
+.change-wrapper .list-wrapper .list-wrap .bt-minus {
+  cursor: pointer;
+}
+
 .change-wrapper .list-wrapper .list-wrap.file-wrapper {
   display: flex;
   justify-content: flex-start;

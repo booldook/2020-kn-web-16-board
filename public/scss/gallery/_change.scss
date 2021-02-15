@@ -7,6 +7,7 @@
 		.list-wrap {
 			margin: 0.5em 0;
 			@include flex($SB, $CT);
+			.bt-minus {cursor: pointer;}
 			&.file-wrapper {
 				@include flex($FS, $CT);
 				.file-wrap {

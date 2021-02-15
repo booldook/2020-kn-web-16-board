@@ -15,6 +15,9 @@ block content
 					.list
 						input.form-control(type="text" name="writer" placeholder="작성자" value=`${rs.writer}`)
 				li.list-file-wrap
+					.bts.text-right.pt-3.pr-2
+						a.bt-plus.mr-2(href="javascript: onChgPlus();")
+							i.fa.fa-plus-circle.text-success
 					each v, i in rs.files 
 						.list-wrap.file-wrapper
 							.title 첨부이미지
@@ -33,9 +36,6 @@ block content
 							.file-wrap
 								.list
 									input.form-control-file(type="file" name="upfile")
-								.bts
-									a.bt-plus.mr-2(href="javascript: onChgPlus();")
-										i.fa.fa-plus-circle.text-success
 				li.text-center.text-success.pb-3 * jpg png gif 파일이 업로드 가능합니다.
 				li.list-wrap.tiny-wrap
 					.w-100
