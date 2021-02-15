@@ -17,6 +17,20 @@ const pugs = {
 	headerTitle: 'Node/Express를 활용한 갤러리' 
 }
 
+router.get('/api/remove/:id', isUser, async (req, res, next) => {
+	try {
+		let sql, rs, r, value;
+		sql = `SELECT gallery_file.* FROM gallery_file LEFT JOIN gallery ON gallery.id = gallery_file.fid
+		WHERE gallery_file.id=? AND gallery.uid=?`;
+		value = [req.params.id, req.session.user.id];
+		r = await pool.query(sql, value);
+		res.json(r[0]);
+	}
+	catch(e) {
+		res.status(500).json(e);
+	}
+});
+
 router.get('/change/:id', isUser, async (req, res, next) => {
 	try {
 		let sql, value, rs, r;
