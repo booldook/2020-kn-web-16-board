@@ -59,6 +59,18 @@ function onModalShow(el, e, id) {
 	$(".modal-wrapper").addClass('active');
 	$('.modal-wrapper .loader').show();
 	$('.modal-wrapper .modal-wrap').removeClass('active');
+	/* $.ajax({
+		url: '/gallery/api/view/'+id,
+		type: 'get',
+		dataType: 'json',
+		success: function(r) {
+			console.log(r);
+		},
+		error: function(xhr, status, error) {
+			console.log(xhr, status, error);
+		}
+	}); */
+	
 	$.get('/gallery/api/view/'+id, function(r){
 		swiperSrc = r.src;
 		console.log(r);
