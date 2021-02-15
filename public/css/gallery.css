@@ -327,6 +327,10 @@
   max-height: 40px;
 }
 
+.change-wrapper .list-wrapper .list-wrap.file-wrapper .file-wrap .legacy > :last-child {
+  cursor: pointer;
+}
+
 .change-wrapper .list-wrapper .list-wrap .title {
   width: 15%;
   line-height: 40px;

@@ -2,10 +2,13 @@ var swiperIdx = 0;
 var swiperSrc;
 var swiper;
 
-function onApiRemove(id) {
+function onApiRemove(el, id) {
 	if(confirm('첨부파일을 삭제하시겠습니까?')) {
 		$.get('/gallery/api/remove/'+id, function(r){
-			console.log(r);
+			if(r.code == 200) {
+				$(el).parents('.list-wrap').remove();
+				$(".list-file-wrap > .bts").show();
+			}
 		});
 	}
 }
@@ -29,7 +32,6 @@ function onChgPlus(el) {
 		$(".list-file-wrap").append(html);
 	}
 	if($(".list-file-wrap > .list-wrap").length >= 10) {
-		console.log($(".list-file-wrap > .bts"));
 		$(".list-file-wrap > .bts").hide();
 	}
 }
@@ -68,25 +70,34 @@ function onSave(f) {
 		f.title.focus();
 		return false;
 	}
-	var isFile = false;
-	if(Array.isArray(f.upfile)) {
-		for(var i=0; i<f.upfile.length; i++) {
-			if(f.upfile[i].files.length == 1) {
-				isFile = true;
-				break;
-			}
-		}
-	}
-	else {
-		if(f.upfile.files.length == 1) isFile = true;
-	}
-	
-	if(!isFile) {
-		alert('첨부이미지는 1개 이상 등록하셔야 합니다.');
+	if(!fileValid(f)) {
+		alert("첨부파일은 1개 이상 등록하셔야 합니다.");
 		return false;
 	}
 	return true;
 }
+
+function fileValid(f) {
+	var isFile = false;
+	if(f.upfile) {
+		if(f.upfile.length) {
+			for(var i=0; i<f.upfile.length; i++) {
+				if(f.upfile[i].files.length == 1) {
+					isFile = true;
+					break;
+				}
+			}
+		}
+		else {
+			if(f.upfile.files.length == 1) isFile = true;
+		}
+	}
+	console.log($(".legacy img").length);
+	if($(".legacy img").length > 0) isFile = true;
+	return isFile;
+}
+
+
 
 function onModalShow(el, e, id) {
 	var html = '';

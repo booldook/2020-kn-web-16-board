@@ -4,7 +4,7 @@ block js
 	script(src="/js/editor.js")
 block content
 	.change-wrapper.wrapper
-		form(action="/gallery/update" method="post" onsubmit="return onUpdate(this);" enctype="multipart/form-data")
+		form(action="/gallery/update" method="post" onsubmit="return onSave(this);" enctype="multipart/form-data")
 			ul.list-wrapper
 				li.list-wrap
 					.title 제목
@@ -15,7 +15,7 @@ block content
 					.list
 						input.form-control(type="text" name="writer" placeholder="작성자" value=`${rs.writer}`)
 				li.list-file-wrap
-					.bts.text-right.pt-3.pr-2(style=`${rs.files.length < 10 ? '' : 'display: none'}`)
+					.bts.text-right.pt-3(style=`${rs.files.length < 10 ? '' : 'display: none'}`)
 						a.bt-plus.mr-2(href="javascript: onChgPlus();")
 							i.fa.fa-plus-circle.text-success
 					each v, i in rs.files 
@@ -26,7 +26,7 @@ block content
 									.legacy
 											img.thumb.mr-2(src=`${v.src}` alt=`${v.orifile}`)
 											span= v.orifile
-											a.ml-2(href=`javascript: onApiRemove(${v.id});`)
+											span.ml-2(onclick=`onApiRemove(this, ${v.id});`)
 												i.fa.fa-times.text-danger.xl
 									.list.pt-2.pb-3
 										input.form-control-file(type="file" name="upfile")

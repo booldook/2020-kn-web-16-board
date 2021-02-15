@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<body>
+	<form onsubmit="event.preventDefault(); onSubmit(this);">
+		<input type="file" name="upfile">
+		<input type="file" name="upfile">
+		<input type="file" name="upfile">
+		<button>눌러봐</button>
+	</form>
+	<script>
+		/*
+		1. upfile 존재해야함
+		2. upfile들 중에 하나라도 데이터를 가져야함.
+		3. 수정모드에서는 기존 파일이 있을때는 데이터를 안가져도 된다.
+		*/
+		function onSubmit(f) {
+			var isFile = false;
+			if(f.upfile) {
+				if(f.upfile.length) {
+					for(var i=0; i<f.upfile.length; i++) {
+						if(f.upfile[i].files.length == 1) {
+							isFile = true;
+							break;
+						}
+					}
+				}
+				else {
+					if(f.upfile.files.length == 1) isFile = true;
+				}
+			}
+			if($(".legacy img").length > 0) isFile = true;
+		}
+	</script>
+</body>
+</html>

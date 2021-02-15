@@ -20,11 +20,16 @@ const pugs = {
 router.get('/api/remove/:id', isUser, async (req, res, next) => {
 	try {
 		let sql, rs, r, value;
-		sql = `SELECT gallery_file.* FROM gallery_file LEFT JOIN gallery ON gallery.id = gallery_file.fid
-		WHERE gallery_file.id=? AND gallery.uid=?`;
+		sql = `SELECT gallery_file.* FROM gallery_file LEFT JOIN gallery ON gallery.id = gallery_file.fid WHERE gallery_file.id=? AND gallery.uid=?`;
 		value = [req.params.id, req.session.user.id];
 		r = await pool.query(sql, value);
-		res.json(r[0]);
+		if(r[0][0]) {
+			await fs.remove(realPath(r[0][0].savefile));
+			sql = 'DELETE FROM gallery_file WHERE id='+req.params.id;
+			r = await pool.query(sql);
+			res.json({code: 200});
+		}
+		else res.status(500).json({code: 500, error: '삭제에 실패했습니다.'});
 	}
 	catch(e) {
 		res.status(500).json(e);
