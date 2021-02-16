@@ -6,6 +6,7 @@ block content
 	.change-wrapper.wrapper
 		form(name="changeForm" action="/gallery/update" method="post" onsubmit="return onSave(this);" enctype="multipart/form-data")
 			input(type="hidden" name="id" value=`${rs.id}`)
+			input(type="hidden" name="delfile")
 			ul.list-wrapper
 				li.list-wrap
 					.title 제목

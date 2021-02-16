@@ -22,7 +22,7 @@ app.locals.pretty = true;
 
 /************* Post/Body **************/
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 
 /************* SESSION **************/
 app.use(session());
@@ -50,5 +50,6 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+	console.log(err);
 	res.render('error', err);
 });

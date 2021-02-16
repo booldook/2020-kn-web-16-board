@@ -1,5 +1,6 @@
 const express = require('express');
 const moment = require('moment');
+const _ = require('lodash');
 const path = require('path');
 const fs = require('fs-extra');
 const ip = require('request-ip');
@@ -19,7 +20,25 @@ const pugs = {
 
 router.post('/update', isUser, uploadImg.array('upfile'), async (req, res, next) => {
 	try {
-		console.log(req);
+		let sql, rs, r, value;
+		let delfile = JSON.parse(req.body.delfile);
+		for(let v of req.files) {
+			let id = _.find(delfile, {name: v.originalname}).id;
+			sql = 'SELECT savefile FROM gallery_file WHERE id='+id;
+			r = await pool.query(sql);
+			await fs.remove(realPath(r[0][0].savefile));
+			sql = 'DELETE FROM gallery_file WHERE id='+id;
+			await pool.query(sql);
+		}
+		sql = 'UPDATE gallery SET title=?, writer=?, content=? WHERE id=?';
+		value = [req.body.title, req.body.writer, req.body.content, req.body.id];
+		r = await pool.query(sql, value);
+		for(let v of req.files) {
+			sql = `INSERT INTO gallery_file SET savefile=?, orifile=?, fid=?`;
+			value = [v.filename, v.originalname, req.body.id];
+			await pool.query(sql, value);
+		}
+		res.redirect('/gallery');
 	}
 	catch(e) {
 		next(err(e.message || e));

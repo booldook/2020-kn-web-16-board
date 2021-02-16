@@ -1,3 +1,4 @@
+
 var swiperIdx = 0;
 var swiperSrc;
 var swiper;
@@ -81,18 +82,20 @@ function onSave(f) {
 }
 
 function addFile(f) {
+	var delfile = [];
 	if(f.upfile.length) {
 		for(var i=0; i<f.upfile.length; i++) {
 			if(f.upfile[i].files.length == 1) {
-				f.upfile[i].files.id = $(f.upfile[i]).data('id');
+				delfile.push({name: f.upfile[i].files[0].name, id: f.upfile[i].dataset.id})
 			}
 		}
 	}
 	else {
 		if(f.upfile.files.length == 1) {
-			f.upfile.files.id = $(f.upfile).data('id');
+			delfile.push({name: f.upfile[i].files[0].name, id: f.upfile[i].dataset.id})
 		}
 	}
+	f.delfile.value = JSON.stringify(delfile);
 }
 
 function fileValid(f) {
