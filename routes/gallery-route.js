@@ -24,11 +24,14 @@ router.post('/update', isUser, uploadImg.array('upfile'), async (req, res, next)
 		let delfile = JSON.parse(req.body.delfile);
 		for(let v of req.files) {
 			let id = _.find(delfile, {name: v.originalname}).id;
-			sql = 'SELECT savefile FROM gallery_file WHERE id='+id;
-			r = await pool.query(sql);
-			await fs.remove(realPath(r[0][0].savefile));
-			sql = 'DELETE FROM gallery_file WHERE id='+id;
-			await pool.query(sql);
+			if(id) {
+				sql = 'SELECT savefile FROM gallery_file WHERE id='+id;
+				console.log(sql);
+				r = await pool.query(sql);
+				await fs.remove(realPath(r[0][0].savefile));
+				sql = 'DELETE FROM gallery_file WHERE id='+id;
+				await pool.query(sql);
+			}
 		}
 		sql = 'UPDATE gallery SET title=?, writer=?, content=? WHERE id=?';
 		value = [req.body.title, req.body.writer, req.body.content, req.body.id];
