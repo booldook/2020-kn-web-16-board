@@ -17,6 +17,15 @@ const pugs = {
 	headerTitle: 'Node/Express를 활용한 갤러리' 
 }
 
+router.post('/update', isUser, uploadImg.array('upfile'), async (req, res, next) => {
+	try {
+		console.log(req);
+	}
+	catch(e) {
+		next(err(e.message || e));
+	}
+});
+
 router.get('/api/remove/:id', isUser, async (req, res, next) => {
 	try {
 		let sql, rs, r, value;
@@ -82,7 +91,7 @@ router.get(['/', '/list'], async (req, res, next) => {
 		let sql, value, r, r2, rs, pager;
 		sql = `SELECT count(id) FROM gallery`;
 		r = await pool.query(sql);
-		pager = pagers(req.query.page || 1, r[0][0]['count(id)']);
+		pager = pagers(req.query.page || 1, r[0][0]['count(id)'], {listCnt: 20});
 		pager.router = 'gallery';
 		sql = `SELECT * FROM gallery LIMIT ${pager.startIdx}, ${pager.listCnt}`;
 		r = await pool.query(sql);

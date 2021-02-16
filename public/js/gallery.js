@@ -74,7 +74,25 @@ function onSave(f) {
 		alert("첨부파일은 1개 이상 등록하셔야 합니다.");
 		return false;
 	}
+	if($(f).attr('name') == 'changeForm') {
+		addFile(f);
+	}
 	return true;
+}
+
+function addFile(f) {
+	if(f.upfile.length) {
+		for(var i=0; i<f.upfile.length; i++) {
+			if(f.upfile[i].files.length == 1) {
+				f.upfile[i].files.id = $(f.upfile[i]).data('id');
+			}
+		}
+	}
+	else {
+		if(f.upfile.files.length == 1) {
+			f.upfile.files.id = $(f.upfile).data('id');
+		}
+	}
 }
 
 function fileValid(f) {

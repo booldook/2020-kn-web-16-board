@@ -4,7 +4,8 @@ block js
 	script(src="/js/editor.js")
 block content
 	.change-wrapper.wrapper
-		form(action="/gallery/update" method="post" onsubmit="return onSave(this);" enctype="multipart/form-data")
+		form(name="changeForm" action="/gallery/update" method="post" onsubmit="return onSave(this);" enctype="multipart/form-data")
+			input(type="hidden" name="id" value=`${rs.id}`)
 			ul.list-wrapper
 				li.list-wrap
 					.title 제목
@@ -29,7 +30,7 @@ block content
 											span.ml-2(onclick=`onApiRemove(this, ${v.id});`)
 												i.fa.fa-times.text-danger.xl
 									.list.pt-2.pb-3
-										input.form-control-file(type="file" name="upfile")
+										input.form-control-file(type="file" name="upfile" data-id=`${v.id}`)
 				li.text-center.text-success.pb-3 * jpg png gif 파일이 업로드 가능합니다.
 				li.list-wrap.tiny-wrap
 					.w-100
