@@ -4,11 +4,23 @@
 		border-radius: 4px;
 		cursor: pointer;
 		overflow: hidden;
+		> img {opacity: 0;}
 		.grid-inside {
 			@include flex($FS, $FS);
 			overflow: hidden;
-			img {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			.ani {
+				flex-shrink: 0;
+				width: 100%;
+				height: 100%;
 				transition: all 0.5s;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
 			}
 		}
 		.grid-info {
@@ -28,7 +40,7 @@
 			.grid-info {
 				transform: translateY(0);
 			}
-			img.ani {
+			.ani {
 				transform: translateX(-100%);
 			}
 		}

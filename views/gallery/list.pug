@@ -11,13 +11,10 @@ block content
 			li.grid-sizer
 			each v in rs
 				li.grid-item(onclick=`onModalShow(this, event, ${v.id})`)
+					img.w-100(src=`${v.src[0]}` alt="img")
 					.grid-inside
-						if v.src[1]
-							img.w-100.ani(src=`${v.src[0]}` alt="img")
-						else 
-							img.w-100(src=`${v.src[0]}` alt="img")
-						if v.src[1]
-							img.w-100.ani(src=`${v.src[1]}` alt="img")
+						.ani(style=`background-image: url(${v.src[0]})`)
+						.ani(style=`background-image: url(${v.src[1] || v.src[0]})`)
 					.grid-info(onclick="event.stopPropagation();")
 						i.fa.fa-edit(onclick=`onEdit(this, event, ${v.id})`) 
 						i.fa.fa-trash-alt(onclick=`onDelete(this, event, ${v.id})`) 
