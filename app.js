@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
+const cors = require('cors');
 const { err } = require('./modules/util');
 const session = require('./modules/session');
 const local = require('./modules/local');
@@ -21,8 +22,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.locals.pretty = true;
 
 /************* Post/Body **************/
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
 
 /************* SESSION **************/
 app.use(session());
