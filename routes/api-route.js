@@ -26,5 +26,30 @@ router.get('/list', async (req, res, next) => {
 	}
 });
 
+router.get('/view/:id', async (req, res, next) => {
+	try {
+		let sql, value, r, rs;
+		sql = 'SELECT * FROM board WHERE id='+req.params.id;
+		r = await pool.query(sql);
+		res.json(r[0]);
+	}
+	catch(e) {
+		res.json(e || e.message);
+	}
+});
+
+router.get('/download/:id', async (req, res, next) => {
+	try {
+		let sql, r, filePath;
+		sql = 'SELECT orifile, savefile FROM board WHERE id='+req.params.id;
+		r = await pool.query(sql);
+		filePath = realPath(r[0][0].savefile);
+		res.download(filePath, r[0][0].orifile);
+	}
+	catch(e) {
+		res.json(e || e.message);
+	}
+});
+
 
 module.exports = router;
