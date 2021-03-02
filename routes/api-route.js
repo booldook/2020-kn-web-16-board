@@ -31,7 +31,7 @@ router.get('/view/:id', async (req, res, next) => {
 		let sql, value, r, rs;
 		sql = 'SELECT * FROM board WHERE id='+req.params.id;
 		r = await pool.query(sql);
-		res.json(r[0]);
+		res.json(r[0][0]);
 	}
 	catch(e) {
 		res.json(e || e.message);
