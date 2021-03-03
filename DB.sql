@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `board` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   CONSTRAINT `FK_board_auth` FOREIGN KEY (`uid`) REFERENCES `auth` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `board_ip` (
   PRIMARY KEY (`id`),
   KEY `bid` (`bid`),
   CONSTRAINT `FK__board` FOREIGN KEY (`bid`) REFERENCES `board` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `uid` (`uid`) USING BTREE,
   CONSTRAINT `gallery_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `auth` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -110,11 +110,11 @@ CREATE TABLE IF NOT EXISTS `gallery_file` (
   `orifile` varchar(255) NOT NULL,
   `savefile` varchar(255) NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gid` int unsigned NOT NULL,
+  `fid` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `gid` (`gid`),
-  CONSTRAINT `FK_gallery_file_gallery` FOREIGN KEY (`gid`) REFERENCES `gallery` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `gid` (`fid`) USING BTREE,
+  CONSTRAINT `FK_gallery_file_gallery` FOREIGN KEY (`fid`) REFERENCES `gallery` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
